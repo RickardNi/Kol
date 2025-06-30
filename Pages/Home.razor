@@ -100,6 +100,37 @@
       navigator.vibrate(duration);
     }
   }
+
+  // Wake lock to prevent screen dimming
+  let wakeLock = null;
+
+  async function requestWakeLock() {
+    try {
+      if ('wakeLock' in navigator) {
+        wakeLock = await navigator.wakeLock.request('screen');
+        console.log('Wake Lock is active');
+        
+        wakeLock.addEventListener('release', () => {
+          console.log('Wake Lock was released');
+        });
+      }
+    } catch (err) {
+      console.error('Wake Lock error:', err);
+    }
+  }
+
+  // Request wake lock when page loads
+  document.addEventListener('DOMContentLoaded', requestWakeLock);
+
+  // Re-request wake lock when page becomes visible again
+  document.addEventListener('visibilitychange', async () => {
+    if (wakeLock !== null && document.visibilityState === 'visible') {
+      await requestWakeLock();
+    }
+  });
+
+  // Expose wake lock functions globally
+  window.requestWakeLock = requestWakeLock;
 </script>
 
 <style>
