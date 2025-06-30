@@ -8,6 +8,7 @@
     <BlazorWebAssemblyEnableLinking>true</BlazorWebAssemblyEnableLinking>
     <BlazorWebAssemblyEnableCompression>true</BlazorWebAssemblyEnableCompression>
     <BlazorWebAssemblyEnableCompressionInDevelopment>true</BlazorWebAssemblyEnableCompressionInDevelopment>
+    <RunAOTCompilation>true</RunAOTCompilation>
   </PropertyGroup>
 
   <ItemGroup>
