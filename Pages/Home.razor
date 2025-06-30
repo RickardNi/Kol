@@ -33,6 +33,15 @@
     </div>
 </div>
 
+<div class="reset-container">
+    <button class="reset-btn" @onclick="ResetHealth" aria-label="Reset health">
+        <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10" />
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+        </svg>
+    </button>
+</div>
+
 @code {
     private const int StartHealth = 20;
     private const int VibrationDuration = 30;
@@ -76,6 +85,12 @@
             topPlayerHealth--;
         else
             bottomPlayerHealth--;
+    }
+
+    private void ResetHealth()
+    {
+        topPlayerHealth = StartHealth;
+        bottomPlayerHealth = StartHealth;
     }
 }
 
@@ -152,5 +167,36 @@ body, html {
     background: #000;
     overflow: hidden;
     touch-action: none;
+}
+.reset-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.reset-btn {
+    background: rgba(0,0,0,0.7);
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    color: #fff;
+    outline: none;
+}
+.reset-btn:active {
+    background: #222;
+}
+.reset-btn svg {
+    display: block;
 }
 </style>
