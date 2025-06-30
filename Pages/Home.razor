@@ -2,7 +2,7 @@
 
 @inject IJSRuntime JS
 
-<PageTitle>MTG Health Tracker</PageTitle>
+<PageTitle>Kol</PageTitle>
 
 <div class="health-tracker">
     <div class="player topPlayer">
@@ -34,9 +34,10 @@
 </div>
 
 @code {
+    private const int StartHealth = 20;
     private const int VibrationDuration = 30;
-    private int topPlayerHealth = 20;
-    private int bottomPlayerHealth = 20;
+    private int topPlayerHealth = StartHealth;
+    private int bottomPlayerHealth = StartHealth;
 
     private bool topPlayerTopPressed = false;
     private bool topPlayerBottomPressed = false;
@@ -107,7 +108,7 @@
 .topPlayer {
     background: #000;
     color: #e74c6f;
-    border-bottom: 2px solid #222;
+    transform: rotate(180deg);
 }
 .bottomPlayer {
     background: #000;
