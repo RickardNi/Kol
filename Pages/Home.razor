@@ -160,6 +160,26 @@
 .tap-zone.pressed {
     background: rgba(255,255,255,0.08);
 }
+
+/* Accent color highlighting for pressed zones */
+.topPlayer .tap-zone.pressed {
+    background: rgba(231, 76, 111, 0.25);
+}
+
+.bottomPlayer .tap-zone.pressed {
+    background: rgba(76, 111, 231, 0.25);
+}
+
+/* Rounded corners for upper zones closest to middle when pressed */
+.topPlayer .tap-zone.top.pressed {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.bottomPlayer .tap-zone.top.pressed {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
 body, html {
     height: 100%;
     margin: 0;
