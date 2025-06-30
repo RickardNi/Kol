@@ -71,20 +71,24 @@
         }
     }
 
-    private void IncreaseHealth(bool isTopPlayer)
+    private async void IncreaseHealth(bool isTopPlayer)
     {
         if (isTopPlayer)
             topPlayerHealth++;
         else
             bottomPlayerHealth++;
+        
+        await JS.InvokeVoidAsync("playHealthIncrease");
     }
 
-    private void DecreaseHealth(bool isTopPlayer)
+    private async void DecreaseHealth(bool isTopPlayer)
     {
         if (isTopPlayer)
             topPlayerHealth--;
         else
             bottomPlayerHealth--;
+        
+        await JS.InvokeVoidAsync("playHealthDecrease");
     }
 
     private void ResetHealth()
@@ -131,6 +135,46 @@
 
   // Expose wake lock functions globally
   window.requestWakeLock = requestWakeLock;
+
+  // Sound effects using Web Audio API
+  let audioContext = null;
+
+  function initAudio() {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+  }
+
+  function playTone(frequency, duration, type = 'sine') {
+    initAudio();
+    
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+    oscillator.type = type;
+    
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + duration);
+  }
+
+  function playHealthIncrease() {
+    playTone(1600, 0.15, 'sine');
+  }
+
+  function playHealthDecrease() {
+    playTone(800, 0.15, 'sine');
+  }
+
+  // Expose sound functions globally
+  window.playHealthIncrease = playHealthIncrease;
+  window.playHealthDecrease = playHealthDecrease;
 </script>
 
 <style>
