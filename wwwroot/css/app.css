@@ -68,17 +68,20 @@ a, .btn-link {
     }
 
 .loading-progress {
-    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: block;
-    width: 8rem;
-    height: 8rem;
-    margin: 20vh auto 1rem auto;
+    width: 14rem;
+    height: 14rem;
+    z-index: 100;
 }
 
     .loading-progress circle {
         fill: none;
         stroke: #e0e0e0;
-        stroke-width: 0.6rem;
+        stroke-width: 1.5rem;
         transform-origin: 50% 50%;
         transform: rotate(-90deg);
     }
