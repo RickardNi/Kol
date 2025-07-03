@@ -201,6 +201,24 @@
   // Setup fullscreen on page load
   document.addEventListener('DOMContentLoaded', setupFullscreen);
 
+  // Prevent context menu and long press selection
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+  });
+
+  // Prevent long press selection on all elements
+  document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+    return false;
+  });
+
+  // Prevent drag and drop
+  document.addEventListener('dragstart', function(e) {
+    e.preventDefault();
+    return false;
+  });
+
   // Re-request wake lock when page becomes visible again
   document.addEventListener('visibilitychange', async () => {
     if (wakeLock !== null && document.visibilityState === 'visible') {
@@ -299,6 +317,13 @@
     margin-bottom: calc(-1 * env(safe-area-inset-bottom));
     margin-left: calc(-1 * env(safe-area-inset-left));
     margin-right: calc(-1 * env(safe-area-inset-right));
+    /* Prevent text selection and context menus */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
 }
 .player {
     flex: 1;
@@ -338,6 +363,13 @@
     z-index: 1;
     background: transparent;
     transition: background 2s;
+    /* Prevent text selection and context menus */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
 }
 .tap-zone.top {
     top: 0;
@@ -379,6 +411,13 @@ body, html {
     overflow: hidden;
     touch-action: none;
     font-family: 'Oxanium', monospace;
+    /* Prevent text selection and context menus */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
     /* Fullscreen mobile optimizations */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
