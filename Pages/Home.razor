@@ -393,6 +393,40 @@
   // Expose long press functions globally
   window.startLongPress = startLongPress;
   window.cancelLongPress = cancelLongPress;
+
+  // PWA Install prompt handling
+  let deferredPrompt;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    console.log('Install prompt ready');
+    
+    // Optionally show a custom install button or notification
+    // You could add a button to your UI here to trigger the install
+  });
+
+  window.addEventListener('appinstalled', (evt) => {
+    console.log('App was installed');
+    deferredPrompt = null;
+  });
+
+  // Function to trigger install prompt (can be called from UI)
+  window.triggerInstall = function() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+      });
+    }
+  };
 </script>
 
 <style>
