@@ -57,8 +57,8 @@
     private int bottomPlayerChangeCounter = 0;
     private bool topPlayerHasChanged = false;
     private bool bottomPlayerHasChanged = false;
-    private Timer topPlayerChangeTimer;
-    private Timer bottomPlayerChangeTimer;
+    private Timer? topPlayerChangeTimer;
+    private Timer? bottomPlayerChangeTimer;
 
     private bool topPlayerTopPressed = false;
     private bool topPlayerBottomPressed = false;
@@ -99,7 +99,7 @@
     }
 
     [JSInvokable]
-    public async void OnLongPress(bool isIncrease)
+    public void OnLongPress(bool isIncrease)
     {
         isLongPress = true;
         // Determine which player and zone based on current state
