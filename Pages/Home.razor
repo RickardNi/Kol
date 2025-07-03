@@ -654,6 +654,29 @@ body, html {
 .reset-btn:active {
     background: #222;
 }
+
+.reset-btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.reset-btn:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.reset-btn:hover {
+    background: rgba(0,0,0,0.7);
+}
+
+.reset-btn:active,
+.reset-btn:focus,
+.reset-btn:focus-visible,
+.reset-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: rgba(0,0,0,0.7) !important;
+}
 .reset-btn svg {
     display: block;
 }
