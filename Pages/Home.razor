@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+@using System.Timers
 @inject IJSRuntime JS
 
 <PageTitle>Kol</PageTitle>
@@ -11,6 +12,10 @@
              @onpointerup="() => HandlePointerUp(true, true, false)"
              @onpointerleave="() => HandlePointerLeave(true, true, false)"></div>
         <span class="health">@topPlayerHealth</span>
+        @if (topPlayerHasChanged)
+        {
+            <span class="change-counter @(topPlayerChangeCounter > 0 ? "positive" : topPlayerChangeCounter < 0 ? "negative" : "neutral")">@(topPlayerChangeCounter > 0 ? "+" : "")@topPlayerChangeCounter</span>
+        }
         <div class="tap-zone bottom @(topPlayerBottomPressed ? "pressed" : null)"
              @onpointerdown="() => HandlePointerDown(true, false, true)"
              @onpointerup="() => HandlePointerUp(true, false, false)"
@@ -22,6 +27,10 @@
              @onpointerup="() => HandlePointerUp(false, true, false)"
              @onpointerleave="() => HandlePointerLeave(false, true, false)"></div>
         <span class="health">@bottomPlayerHealth</span>
+        @if (bottomPlayerHasChanged)
+        {
+            <span class="change-counter @(bottomPlayerChangeCounter > 0 ? "positive" : bottomPlayerChangeCounter < 0 ? "negative" : "neutral")">@(bottomPlayerChangeCounter > 0 ? "+" : "")@bottomPlayerChangeCounter</span>
+        }
         <div class="tap-zone bottom @(bottomPlayerBottomPressed ? "pressed" : null)"
              @onpointerdown="() => HandlePointerDown(false, false, true)"
              @onpointerup="() => HandlePointerUp(false, false, false)"
@@ -43,6 +52,13 @@
     private const int VibrationDuration = 30;
     private int topPlayerHealth = StartHealth;
     private int bottomPlayerHealth = StartHealth;
+
+    private int topPlayerChangeCounter = 0;
+    private int bottomPlayerChangeCounter = 0;
+    private bool topPlayerHasChanged = false;
+    private bool bottomPlayerHasChanged = false;
+    private Timer topPlayerChangeTimer;
+    private Timer bottomPlayerChangeTimer;
 
     private bool topPlayerTopPressed = false;
     private bool topPlayerBottomPressed = false;
@@ -114,9 +130,15 @@
     private async void IncreaseHealth(bool isTopPlayer)
     {
         if (isTopPlayer)
+        {
             topPlayerHealth++;
+            UpdateChangeCounter(true, 1);
+        }
         else
+        {
             bottomPlayerHealth++;
+            UpdateChangeCounter(false, 1);
+        }
         
         await JS.InvokeVoidAsync("playHealthIncrease");
     }
@@ -124,27 +146,99 @@
     private async void DecreaseHealth(bool isTopPlayer)
     {
         if (isTopPlayer)
+        {
             topPlayerHealth--;
+            UpdateChangeCounter(true, -1);
+        }
         else
+        {
             bottomPlayerHealth--;
+            UpdateChangeCounter(false, -1);
+        }
         
         await JS.InvokeVoidAsync("playHealthDecrease");
     }
 
     private async void LongPressHealth(bool isTopPlayer, bool isIncrease)
     {
+        int change = isIncrease ? 10 : -10;
         if (isTopPlayer)
-            topPlayerHealth += isIncrease ? 10 : -10;
+        {
+            topPlayerHealth += change;
+            UpdateChangeCounter(true, change);
+        }
         else
-            bottomPlayerHealth += isIncrease ? 10 : -10;
+        {
+            bottomPlayerHealth += change;
+            UpdateChangeCounter(false, change);
+        }
         
         await JS.InvokeVoidAsync(isIncrease ? "playHealthIncrease" : "playHealthDecrease");
+    }
+
+    private void UpdateChangeCounter(bool isTopPlayer, int change)
+    {
+        if (isTopPlayer)
+        {
+            topPlayerChangeCounter += change;
+            topPlayerHasChanged = true;
+            StartChangeTimer(true);
+        }
+        else
+        {
+            bottomPlayerChangeCounter += change;
+            bottomPlayerHasChanged = true;
+            StartChangeTimer(false);
+        }
+        StateHasChanged();
+    }
+
+    private void StartChangeTimer(bool isTopPlayer)
+    {
+        if (isTopPlayer)
+        {
+            topPlayerChangeTimer?.Dispose();
+            topPlayerChangeTimer = new Timer(3000);
+            topPlayerChangeTimer.Elapsed += (sender, e) => ResetChangeCounter(true);
+            topPlayerChangeTimer.AutoReset = false;
+            topPlayerChangeTimer.Start();
+        }
+        else
+        {
+            bottomPlayerChangeTimer?.Dispose();
+            bottomPlayerChangeTimer = new Timer(3000);
+            bottomPlayerChangeTimer.Elapsed += (sender, e) => ResetChangeCounter(false);
+            bottomPlayerChangeTimer.AutoReset = false;
+            bottomPlayerChangeTimer.Start();
+        }
+    }
+
+    private void ResetChangeCounter(bool isTopPlayer)
+    {
+        if (isTopPlayer)
+        {
+            topPlayerChangeCounter = 0;
+            topPlayerHasChanged = false;
+        }
+        else
+        {
+            bottomPlayerChangeCounter = 0;
+            bottomPlayerHasChanged = false;
+        }
+        
+        InvokeAsync(StateHasChanged);
     }
 
     private void ResetHealth()
     {
         topPlayerHealth = StartHealth;
         bottomPlayerHealth = StartHealth;
+    }
+
+    public void Dispose()
+    {
+        topPlayerChangeTimer?.Dispose();
+        bottomPlayerChangeTimer?.Dispose();
     }
 }
 
@@ -354,6 +448,30 @@
     left: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
+}
+
+.change-counter {
+    font-size: 3rem;
+    font-weight: 600;
+    user-select: none;
+    z-index: 3;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.change-counter.positive {
+    color: #4CAF50;
+}
+
+.change-counter.negative {
+    color: #f44336;
+}
+
+.change-counter.neutral {
+    color: #ffffff;
 }
 .tap-zone {
     width: 100%;
