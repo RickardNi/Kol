@@ -36,7 +36,12 @@
         <span class="dismiss">🗙</span>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
-    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script>
+      // Only register service worker in production
+      if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        navigator.serviceWorker.register('service-worker.js');
+      }
+    </script>
 </body>
 
 </html>

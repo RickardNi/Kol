@@ -10,6 +10,14 @@ const urlsToCache = [
   '/favicon.png'
 ];
 
+// Skip service worker in development
+if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+  console.log('Development mode - skipping service worker');
+  self.addEventListener('install', () => self.skipWaiting());
+  self.addEventListener('activate', () => self.registration.unregister());
+  return;
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
