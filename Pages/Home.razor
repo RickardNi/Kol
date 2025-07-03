@@ -233,6 +233,16 @@
     {
         topPlayerHealth = StartHealth;
         bottomPlayerHealth = StartHealth;
+        
+        // Reset change counters and hide them
+        topPlayerChangeCounter = 0;
+        bottomPlayerChangeCounter = 0;
+        topPlayerHasChanged = false;
+        bottomPlayerHasChanged = false;
+        
+        // Stop any running timers
+        topPlayerChangeTimer?.Dispose();
+        bottomPlayerChangeTimer?.Dispose();
     }
 
     public void Dispose()
