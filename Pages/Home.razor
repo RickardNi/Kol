@@ -176,6 +176,31 @@
   // Request wake lock when page loads
   document.addEventListener('DOMContentLoaded', requestWakeLock);
 
+  // Force fullscreen and handle viewport
+  function setupFullscreen() {
+    // Set viewport height properly for mobile browsers
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    
+    // Try to enter fullscreen mode if supported
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.log('Fullscreen request failed:', err);
+      });
+    }
+    
+    // Handle orientation changes
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }, 100);
+    });
+  }
+
+  // Setup fullscreen on page load
+  document.addEventListener('DOMContentLoaded', setupFullscreen);
+
   // Re-request wake lock when page becomes visible again
   document.addEventListener('visibilitychange', async () => {
     if (wakeLock !== null && document.visibilityState === 'visible') {
@@ -254,6 +279,8 @@
     flex-direction: column;
     height: 100vh;
     height: 100dvh;
+    height: 100%;
+    height: calc(var(--vh, 1vh) * 100);
     margin: 0;
     padding: 0;
     position: fixed;
@@ -261,6 +288,17 @@
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100vw;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: -webkit-fill-available;
+    /* Ensure it covers the entire viewport including status bar area */
+    margin-top: calc(-1 * env(safe-area-inset-top));
+    margin-bottom: calc(-1 * env(safe-area-inset-bottom));
+    margin-left: calc(-1 * env(safe-area-inset-left));
+    margin-right: calc(-1 * env(safe-area-inset-right));
 }
 .player {
     flex: 1;
@@ -333,6 +371,8 @@
 body, html {
     height: 100vh;
     height: 100dvh;
+    height: 100%;
+    height: calc(var(--vh, 1vh) * 100);
     margin: 0;
     padding: 0;
     background: #000;
@@ -344,6 +384,42 @@ body, html {
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
+    /* Force fullscreen on mobile */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: -webkit-fill-available;
+}
+
+/* Ensure the app container is also fullscreen */
+#app {
+    height: 100vh;
+    height: 100dvh;
+    height: 100%;
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100vw;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Hide any loading elements that might cause spacing */
+.loading-progress {
+    display: none;
 }
 .reset-container {
     position: absolute;
