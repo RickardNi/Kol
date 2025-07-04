@@ -528,29 +528,20 @@ code {
     user-select: none;
 }
 
-.settings-btn-container {
-    position: absolute;
+.toggle-btn-container {
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 20;
+    z-index: 200;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.close-btn-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 120;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.settings-btn {
+
+.toggle-btn {
     background: transparent;
     border: none;
     border-radius: 50%;
@@ -560,7 +551,7 @@ code {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.2s, box-shadow 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: none;
     color: var(--neutral-white);
     outline: none;
@@ -568,66 +559,63 @@ code {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
+    position: relative;
+    overflow: hidden;
+    pointer-events: auto;
 }
 
-.settings-btn:active {
+.toggle-btn:active {
     background: transparent;
+    transform: scale(0.95);
 }
 
-.settings-btn:focus,
-.settings-btn:focus-visible,
-.settings-btn:focus-within {
+.toggle-btn:focus,
+.toggle-btn:focus-visible,
+.toggle-btn:focus-within {
     outline: none !important;
     box-shadow: none !important;
     background: transparent !important;
 }
 
-.settings-btn:hover {
+.toggle-btn:hover {
     background: transparent;
 }
 
-.settings-btn svg {
+.toggle-btn svg {
     display: block;
-}
-
-.close-btn {
-    background: var(--button-background);
-    border: none;
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: var(--neutral-white);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
 }
 
-.close-btn:active {
-    background: #222;
+.toggle-btn .settings-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
 }
 
-.close-btn:focus,
-.close-btn:focus-visible,
-.close-btn:focus-within {
-    outline: none !important;
-    box-shadow: none !important;
-    background: var(--button-background) !important;
+.toggle-btn .close-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-90deg);
 }
 
-.close-btn:hover {
-    background: var(--button-background);
+.toggle-btn.close .settings-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.close-btn svg {
-    display: block;
+.toggle-btn.close .close-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
 }
+
+.toggle-btn.close {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
 
 .reset-control {
     display: flex;

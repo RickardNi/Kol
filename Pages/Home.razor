@@ -100,18 +100,13 @@
     </div>
 </div>
 
-<div class="settings-btn-container" style="display:@(isSettingsOpen ? "none" : "flex")">
-    <button class="settings-btn" @onclick="() => isSettingsOpen = true" aria-label="Open settings">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt-icon lucide-bolt">
+<div class="toggle-btn-container">
+    <button class="toggle-btn @(isSettingsOpen ? "close" : "settings")" @onclick="ToggleSettings" aria-label="@(isSettingsOpen ? "Close settings" : "Open settings")">
+        <svg class="settings-icon lucide lucide-bolt-icon lucide-bolt" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
             <circle cx="12" cy="12" r="4"/>
         </svg>
-    </button>
-</div>
-
-<div class="close-btn-container" style="display:@(isSettingsOpen ? "flex" : "none")">
-    <button class="close-btn" @onclick="() => isSettingsOpen = false" aria-label="Close settings">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x-icon lucide-circle-x">
+        <svg class="close-icon lucide lucide-circle-x-icon lucide-circle-x" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <path d="m15 9-6 6"/>
             <path d="m9 9 6 6"/>
@@ -138,6 +133,12 @@
     private bool bottomPlayerBottomPressed = false;
 
     private bool isLongPress = false;
+
+    private void ToggleSettings()
+    {
+        isSettingsOpen = !isSettingsOpen;
+        StateHasChanged();
+    }
 
     private async void HandlePointerDown(bool isTopPlayer, bool isTop, bool pressed)
     {
