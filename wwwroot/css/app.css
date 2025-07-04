@@ -1,6 +1,6 @@
-/* Minimal optimized CSS for Kol health tracker */
+/* Kol Health Tracker - Complete CSS */
 
-/* Font-face declarations for Anta, Rationale, and Oxanium */
+/* ===== FONT DECLARATIONS ===== */
 @font-face {
     font-family: 'Anta';
     src: url('../fonts/Anta-Regular.ttf') format('truetype');
@@ -8,6 +8,7 @@
     font-style: normal;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Rationale';
     src: url('../fonts/Rationale-Regular.ttf') format('truetype');
@@ -15,6 +16,7 @@
     font-style: normal;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Oxanium';
     src: url('../fonts/Oxanium-VariableFont_wght.ttf') format('truetype');
@@ -23,14 +25,278 @@
     font-display: swap;
 }
 
+/* ===== CSS VARIABLES ===== */
 :root {
     --app-font-family: 'Oxanium', monospace;
+    --vh: 1vh;
+    --tap-zone-transition: 0.25s;
+    --primary-red: #e74c6f;
+    --primary-blue: #4c6fe7;
+    --success-green: #4CAF50;
+    --error-red: #f44336;
+    --neutral-white: #ffffff;
+    --background-black: #000;
+    --button-background: rgba(0, 0, 0, 0.7);
 }
 
-body {
+/* ===== GLOBAL STYLES ===== */
+html, body {
+    height: 100vh;
+    height: 100dvh;
+    height: calc(var(--vh) * 100);
+    margin: 0;
+    padding: 0;
+    background: var(--background-black);
+    overflow: hidden;
+    touch-action: none;
     font-family: var(--app-font-family);
+    /* Prevent text selection and context menus */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    /* Fullscreen mobile optimizations */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    /* Force fullscreen on mobile */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: calc(var(--vh) * 100);
+    min-height: -webkit-fill-available;
 }
 
+/* ===== APP CONTAINER ===== */
+#app {
+    height: 100vh;
+    height: 100dvh;
+    height: calc(var(--vh) * 100);
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background: var(--background-black);
+}
+
+/* ===== HEALTH TRACKER MAIN CONTAINER ===== */
+.health-tracker {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    height: calc(var(--vh) * 100);
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: calc(var(--vh) * 100);
+    min-height: -webkit-fill-available;
+    /* Ensure it covers the entire viewport including status bar area */
+    margin-top: calc(-1 * env(safe-area-inset-top));
+    margin-bottom: calc(-1 * env(safe-area-inset-bottom));
+    margin-left: calc(-1 * env(safe-area-inset-left));
+    margin-right: calc(-1 * env(safe-area-inset-right));
+    /* Prevent text selection and context menus */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== PLAYER CONTAINERS ===== */
+.player {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.topPlayer {
+    background: var(--background-black);
+    color: var(--primary-red);
+    transform: rotate(180deg);
+}
+
+.bottomPlayer {
+    background: var(--background-black);
+    color: var(--primary-blue);
+}
+
+/* ===== HEALTH DISPLAY ===== */
+.health {
+    font-size: 12rem;
+    font-weight: 600;
+    user-select: none;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* ===== CHANGE COUNTER ===== */
+.change-counter {
+    font-size: 3rem;
+    font-weight: 600;
+    user-select: none;
+    z-index: 3;
+    position: absolute;
+    top: 17.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.change-counter.positive {
+    color: var(--success-green);
+}
+
+.change-counter.negative {
+    color: var(--error-red);
+}
+
+.change-counter.neutral {
+    color: var(--neutral-white);
+}
+
+/* ===== TAP ZONES ===== */
+.tap-zone {
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    background: transparent;
+    /* Use custom property for transition duration */
+    transition: background var(--tap-zone-transition);
+    /* Prevent text selection and context menus */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.tap-zone.top {
+    top: 0;
+}
+
+.tap-zone.bottom {
+    bottom: 0;
+}
+
+/* Instantly fade in (no transition) when pressed */
+.tap-zone.pressed {
+    --tap-zone-transition: 0s;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Accent color highlighting for pressed zones */
+.topPlayer .tap-zone.pressed {
+    background: rgba(231, 76, 111, 0.8);
+}
+
+.bottomPlayer .tap-zone.pressed {
+    background: rgba(76, 111, 231, 0.8);
+}
+
+/* Rounded corners for upper zones closest to middle when pressed */
+.topPlayer .tap-zone.top.pressed {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.bottomPlayer .tap-zone.top.pressed {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/* ===== RESET BUTTON ===== */
+.reset-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reset-btn {
+    background: var(--button-background);
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.reset-btn:active {
+    background: #222;
+}
+
+.reset-btn:focus,
+.reset-btn:focus-visible,
+.reset-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: var(--button-background) !important;
+}
+
+.reset-btn:hover {
+    background: var(--button-background);
+}
+
+.reset-btn svg {
+    display: block;
+}
+
+/* Hide loading elements */
+.loading-progress {
+    display: none;
+}
+
+/* ===== ERROR HANDLING ===== */
 #blazor-error-ui {
     color-scheme: light only;
     background: lightyellow;
@@ -45,12 +311,12 @@ body {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
 
 .blazor-error-boundary {
     background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0IHg9IjIzNSIgeT0iNTEiIHdpZHRoPSI1NiIgaGVpZ2h0PSI0OSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzUgLTUxKSI+PHBhdGggZD0iTTI2My41MDYgNTFDMjY0LjcxNyA1MSAyNjUuODEzIDUxLjQ4MzcgMjY2LjYwNiA1Mi4yNjU4TDI2Ny4wNTIgNTIuNzk4NyAyNjcuNTM5IDUzLjYyODMgMjkwLjE4NSA5Mi4xODMxIDI5MC41NDUgOTIuNzk1IDI5MC42NTYgOTIuOTk2QzI5MC44NzcgOTMuNTEzIDI5MSA5NC4wODE1IDI5MSA5NC42NzgyIDI5MSA5Ny4wNjUxIDI4OS4wMzggOTkgMjg2LjYxNyA5OUwyNDAuMzgzIDk5QzIzNy45NjMgOTkgMjM2IDk3LjA2NTEgMjM2IDk0LjY3ODIgMjM2IDk0LjM3OTkgMjM2LjAzMSA5NC4wODg2IDIzNi4wODkgOTMuODA3MkwyMzYuMzM4IDkzLjAxNjIgMjM2Ljg1OCA5Mi4xMzE0IDI1OS40NzMgNTMuNjI5NCAyNTkuOTYxIDUyLjc5ODUgMjYwLjQwNyA1Mi4yNjU4QzI2MS4yIDUxLjQ4MzcgMjYyLjI5NiA1MSAyNjMuNTA2IDUxWk0yNjMuNTg2IDY2LjAxODNDMjYwLjczNyA2Ni4wMTgzIDI1OS4zMTMgNjcuMTI0NSAyNTkuMzEzIDY5LjMzNyAyNTkuMzEzIDY5LjYxMDIgMjU5LjMzMiA2OS44NjA4IDI1OS4zNzEgNzAuMDg4N0wyNjEuNzk1IDg0LjAxNjEgMjY1LjM4IDg0LjAxNjEgMjY3LjgyMSA2OS43NDc1QzI2Ny44NiA2OS43MzA5IDI2Ny44NzkgNjkuNTg3NyAyNjcuODc5IDY5LjMxNzkgMjY3Ljg3OSA2Ny4xMTgyIDI2Ni40NDggNjYuMDE4MyAyNjMuNTg2IDY2LjAxODNaTTI2My41NzYgODYuMDU0N0MyNjEuMDQ5IDg2LjA1NDcgMjU5Ljc4NiA4Ny4zMDA1IDI1OS43ODYgODkuNzkyMSAyNTkuNzg2IDkyLjI4MzcgMjYxLjA0OSA5My41Mjk1IDI2My41NzYgOTMuNTI5NSAyNjYuMTE2IDkzLjUyOTUgMjY3LjM4NyA5Mi4yODM3IDI2Ny4zODcgODkuNzkyMSAyNjcuMzg3IDg3LjMwMDUgMjY2LjExNiA4Ni4wNTQ3IDI2My41NzYgODYuMDU0N1oiIGZpbGw9IiNGRkU1MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=) no-repeat 1rem/1.8rem, #b32121;
@@ -58,34 +324,35 @@ body {
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
-    }
+.blazor-error-boundary::after {
+    content: "An error has occurred."
+}
 
+/* ===== LOADING PROGRESS (HIDDEN) ===== */
 .loading-progress {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: block;
+    display: none; /* Hidden since we don't want to show loading */
     width: 14rem;
     height: 14rem;
     z-index: 100;
 }
 
-    .loading-progress circle {
-        fill: none;
-        stroke: #e0e0e0;
-        stroke-width: 1.5rem;
-        transform-origin: 50% 50%;
-        transform: rotate(-90deg);
-    }
+.loading-progress circle {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 1.5rem;
+    transform-origin: 50% 50%;
+    transform: rotate(-90deg);
+}
 
-        .loading-progress circle:last-child {
-            stroke: #1b6ec2;
-            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
-            transition: stroke-dasharray 0.05s ease-in-out;
-        }
+.loading-progress circle:last-child {
+    stroke: #1b6ec2;
+    stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
+    transition: stroke-dasharray 0.05s ease-in-out;
+}
 
 .loading-progress-text {
     position: absolute;
@@ -94,19 +361,22 @@ body {
     inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
 }
 
-    .loading-progress-text:after {
-        content: var(--blazor-load-percentage-text, "Loading");
-    }
+.loading-progress-text:after {
+    content: var(--blazor-load-percentage-text, "Loading");
+}
 
+/* ===== UTILITY STYLES ===== */
 code {
     color: #c02d76;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
     color: var(--bs-secondary-color);
     text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
