@@ -195,10 +195,12 @@
 
     private void StartChangeTimer(bool isTopPlayer)
     {
+        const int ChangeTimerDuration = 1500; // Milliseconds
+
         if (isTopPlayer)
         {
             topPlayerChangeTimer?.Dispose();
-            topPlayerChangeTimer = new Timer(3000);
+            topPlayerChangeTimer = new Timer(ChangeTimerDuration);
             topPlayerChangeTimer.Elapsed += (sender, e) => ResetChangeCounter(true);
             topPlayerChangeTimer.AutoReset = false;
             topPlayerChangeTimer.Start();
@@ -206,7 +208,7 @@
         else
         {
             bottomPlayerChangeTimer?.Dispose();
-            bottomPlayerChangeTimer = new Timer(3000);
+            bottomPlayerChangeTimer = new Timer(ChangeTimerDuration);
             bottomPlayerChangeTimer.Elapsed += (sender, e) => ResetChangeCounter(false);
             bottomPlayerChangeTimer.AutoReset = false;
             bottomPlayerChangeTimer.Start();
