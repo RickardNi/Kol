@@ -1,6 +1,9 @@
 ﻿@page "/"
 
 @using System.Timers
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components
 @inject IJSRuntime JS
 
 <PageTitle>Kol</PageTitle>
@@ -324,6 +327,22 @@
         topPlayerChangeTimer?.Dispose();
         bottomPlayerChangeTimer?.Dispose();
     }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Enable wake lock after first render
+            try
+            {
+                await JS.InvokeVoidAsync("wakeLockManager.enable");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to enable wake lock: {ex.Message}");
+            }
+        }
+    }
 }
 
 <script>
@@ -332,27 +351,6 @@
       navigator.vibrate(duration);
     }
   }
-
-  // Wake lock to prevent screen dimming
-  let wakeLock = null;
-
-  async function requestWakeLock() {
-    try {
-      if ('wakeLock' in navigator) {
-        wakeLock = await navigator.wakeLock.request('screen');
-        console.log('Wake Lock is active');
-        
-        wakeLock.addEventListener('release', () => {
-          console.log('Wake Lock was released');
-        });
-      }
-    } catch (err) {
-      console.error('Wake Lock error:', err);
-    }
-  }
-
-  // Request wake lock when page loads
-  document.addEventListener('DOMContentLoaded', requestWakeLock);
 
   // Force fullscreen and handle viewport
   function setupFullscreen() {
@@ -396,16 +394,6 @@
     e.preventDefault();
     return false;
   });
-
-  // Re-request wake lock when page becomes visible again
-  document.addEventListener('visibilitychange', async () => {
-    if (wakeLock !== null && document.visibilityState === 'visible') {
-      await requestWakeLock();
-    }
-  });
-
-  // Expose wake lock functions globally
-  window.requestWakeLock = requestWakeLock;
 
   // Sound effects using Web Audio API
   let audioContext = null;
