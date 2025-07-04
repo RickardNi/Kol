@@ -524,7 +524,8 @@
     left: 0;
     z-index: 1;
     background: transparent;
-    transition: background 0.1s;
+    /* Use a custom property to control transition duration */
+    transition: background var(--tap-zone-transition, 0.25s);
     /* Prevent text selection and context menus */
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -533,6 +534,13 @@
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
 }
+
+/* Instantly fade in (no transition) when pressed */
+.tap-zone.pressed {
+    --tap-zone-transition: 0s;
+}
+
+/* Default (fade out) uses 3s, as above */
 .tap-zone.top {
     top: 0;
 }
