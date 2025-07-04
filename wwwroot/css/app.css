@@ -380,3 +380,381 @@ code {
 .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+/* ===== SETTINGS POPUP & GLASS EFFECT ===== */
+.settings-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    /* No background color, but glass effect for overlay */
+    background: none;
+    backdrop-filter: blur(0px);
+}
+
+.settings-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: rgba(0,0,0,0.25);
+    /* Glass effect */
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+}
+
+.popup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.popup-quadrant {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.popup-quadrant.top-left {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.popup-quadrant.top-right {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.popup-quadrant.bottom-left {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.popup-quadrant.bottom-right {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.blurred {
+    filter: blur(8px) brightness(0.7) grayscale(0.2);
+    pointer-events: none;
+    user-select: none;
+}
+
+.settings-btn-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-btn {
+    background: var(--button-background);
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.settings-btn:active {
+    background: #222;
+}
+
+.settings-btn:focus,
+.settings-btn:focus-visible,
+.settings-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: var(--button-background) !important;
+}
+
+.settings-btn:hover {
+    background: var(--button-background);
+}
+
+.settings-btn svg {
+    display: block;
+}
+
+.close-btn {
+    background: var(--button-background);
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--neutral-white);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.close-btn:active {
+    background: #222;
+}
+
+.close-btn:focus,
+.close-btn:focus-visible,
+.close-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: var(--button-background) !important;
+}
+
+.close-btn:hover {
+    background: var(--button-background);
+}
+
+.close-btn svg {
+    display: block;
+}
+
+.reset-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.reset-label {
+    font-family: var(--app-font-family);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-white);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.history-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.history-btn {
+    background: var(--button-background);
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.history-btn:active {
+    background: #222;
+}
+
+.history-btn:focus,
+.history-btn:focus-visible,
+.history-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: var(--button-background) !important;
+}
+
+.history-btn:hover {
+    background: var(--button-background);
+}
+
+.history-btn svg {
+    display: block;
+}
+
+.history-label {
+    font-family: var(--app-font-family);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-white);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.dice-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.dice-btn {
+    background: var(--button-background);
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.dice-btn:active {
+    background: #222;
+}
+
+.dice-btn:focus,
+.dice-btn:focus-visible,
+.dice-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: var(--button-background) !important;
+}
+
+.dice-btn:hover {
+    background: var(--button-background);
+}
+
+.dice-btn svg {
+    display: block;
+}
+
+.dice-label {
+    font-family: var(--app-font-family);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-white);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.settings-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.settings-control-btn {
+    background: var(--button-background);
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.settings-control-btn:active {
+    background: #222;
+}
+
+.settings-control-btn:focus,
+.settings-control-btn:focus-visible,
+.settings-control-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: var(--button-background) !important;
+}
+
+.settings-control-btn:hover {
+    background: var(--button-background);
+}
+
+.settings-control-btn svg {
+    display: block;
+}
+
+.settings-control-label {
+    font-family: var(--app-font-family);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-white);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
