@@ -856,3 +856,25 @@ code {
     -moz-user-select: none;
     -ms-user-select: none;
 }
+
+.debug-info {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-family: var(--app-font-family);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.settings-container.open .debug-info {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
