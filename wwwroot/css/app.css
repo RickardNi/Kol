@@ -1,5 +1,36 @@
 /* Minimal optimized CSS for Kol health tracker */
 
+/* Font-face declarations for Anta, Rationale, and Oxanium */
+@font-face {
+    font-family: 'Anta';
+    src: url('../fonts/Anta-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Rationale';
+    src: url('../fonts/Rationale-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Oxanium';
+    src: url('../fonts/Oxanium-VariableFont_wght.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --app-font-family: 'Oxanium', monospace;
+}
+
+body {
+    font-family: var(--app-font-family);
+}
+
 #blazor-error-ui {
     color-scheme: light only;
     background: lightyellow;
