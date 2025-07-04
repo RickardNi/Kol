@@ -304,7 +304,7 @@
         InvokeAsync(StateHasChanged);
     }
 
-    private void ResetHealth()
+    private async void ResetHealth()
     {
         topPlayerHealth = StartHealth;
         bottomPlayerHealth = StartHealth;
@@ -319,8 +319,14 @@
         topPlayerChangeTimer?.Dispose();
         bottomPlayerChangeTimer?.Dispose();
         
+        // Play reset sound effect
+        await JS.InvokeVoidAsync("playResetSound");
+        
         // Close the popup
         isSettingsOpen = false;
+        
+        // Ensure UI updates
+        await InvokeAsync(StateHasChanged);
     }
 
     public void Dispose()
@@ -432,9 +438,16 @@
     playTone(800, 0.15, 'sine');
   }
 
+  function playResetSound() {
+    // Play a quick two-tone descending reset sound
+    playTone(700, 0.15, 'triangle');
+    setTimeout(() => playTone(400, 0.15, 'triangle'), 150);
+  }
+
   // Expose sound functions globally
   window.playHealthIncrease = playHealthIncrease;
   window.playHealthDecrease = playHealthDecrease;
+  window.playResetSound = playResetSound;
 
   // Long press detection
   let longPressTimer = null;
