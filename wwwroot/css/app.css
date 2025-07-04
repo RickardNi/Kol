@@ -466,6 +466,10 @@ code {
     /* No background color, but glass effect for overlay */
     background: none;
     backdrop-filter: blur(0px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.95);
 }
 
 .settings-container::before {
@@ -480,6 +484,18 @@ code {
     /* Glass effect */
     backdrop-filter: blur(12px) saturate(1.2);
     -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.settings-container.open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.settings-container.open::before {
+    opacity: 1;
 }
 
 .popup-grid {
@@ -496,6 +512,30 @@ code {
     align-items: center;
     justify-content: center;
     position: relative;
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.settings-container.open .popup-quadrant {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.settings-container.open .popup-quadrant.top-left {
+    transition-delay: 0.1s;
+}
+
+.settings-container.open .popup-quadrant.top-right {
+    transition-delay: 0.15s;
+}
+
+.settings-container.open .popup-quadrant.bottom-left {
+    transition-delay: 0.2s;
+}
+
+.settings-container.open .popup-quadrant.bottom-right {
+    transition-delay: 0.25s;
 }
 
 .popup-quadrant.top-left {
