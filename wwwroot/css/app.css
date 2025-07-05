@@ -949,11 +949,9 @@ code {
 @keyframes winnerPulse {
     0%, 100% {
         background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
-        box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
     }
     50% {
         background: linear-gradient(135deg, rgba(76, 175, 80, 0.4) 0%, rgba(76, 175, 80, 0.2) 100%);
-        box-shadow: 0 0 40px rgba(76, 175, 80, 0.6);
     }
 }
 
