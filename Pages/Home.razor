@@ -75,6 +75,73 @@
     </div>
 }
 
+@* History Display Overlay *@
+@if (isHistoryOpen)
+{
+    <div class="history-overlay">
+        <div class="history-container">
+            <div class="history-header">
+                <h2>History</h2>
+                <button class="history-close-btn" @onclick="CloseHistory" aria-label="Close history">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x-icon lucide-circle-x">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="m15 9-6 6"/>
+                        <path d="m9 9 6 6"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="history-content">
+                <div class="history-column left-column">
+                    <div class="player-label">Red Player</div>
+                    <div class="history-entries">
+                        @{
+                            var bottomPlayerHistory = healthHistory.Where(h => !h.IsTopPlayer).Take(20).ToList();
+                            if (bottomPlayerHistory.Count > 0)
+                            {
+                                <div class="history-entry start">@StartHealth</div>
+                                foreach (var change in bottomPlayerHistory)
+                                {
+                                    <div class="history-entry change @(change.ChangeAmount > 0 ? "positive" : "negative")">
+                                        <span class="change-amount">@(change.ChangeAmount > 0 ? "+" : "")@change.ChangeAmount</span>
+                                        <span class="new-health">@change.NewHealth</span>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="history-entry start">@StartHealth</div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="history-column right-column">
+                    <div class="player-label">Blue Player</div>
+                    <div class="history-entries">
+                        @{
+                            var topPlayerHistory = healthHistory.Where(h => h.IsTopPlayer).Take(20).ToList();
+                            if (topPlayerHistory.Count > 0)
+                            {
+                                <div class="history-entry start">@StartHealth</div>
+                                foreach (var change in topPlayerHistory)
+                                {
+                                    <div class="history-entry change @(change.ChangeAmount > 0 ? "positive" : "negative")">
+                                        <span class="change-amount">@(change.ChangeAmount > 0 ? "+" : "")@change.ChangeAmount</span>
+                                        <span class="new-health">@change.NewHealth</span>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="history-entry start">@StartHealth</div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <div class="settings-container @(isSettingsOpen ? "open" : "")">
     <div class="popup-grid">
         <div class="popup-quadrant top-left">
@@ -90,7 +157,7 @@
         </div>
         <div class="popup-quadrant top-right">
             <div class="history-control">
-                <button class="history-btn" @onclick="() => {}" aria-label="View history">
+                <button class="history-btn" @onclick="OpenHistory" aria-label="View history">
                     <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history-icon lucide-history">
                         <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
                         <path d="M3 3v5h5"/>
@@ -167,7 +234,17 @@
 
     private bool isLongPress = false;
     private bool isRollCloseClicked = false;
+    private bool isHistoryOpen = false;
     private string buildNumber = "dev";
+    
+    private List<HealthChange> healthHistory = new();
+        
+    public class HealthChange
+    {
+        public bool IsTopPlayer { get; set; }
+        public int ChangeAmount { get; set; }
+        public int NewHealth { get; set; }
+    }
 
     private void ToggleSettings()
     {
@@ -251,11 +328,13 @@
         {
             topPlayerHealth++;
             UpdateChangeCounter(true, 1);
+            RecordHealthChange(true, 1, topPlayerHealth);
         }
         else
         {
             bottomPlayerHealth++;
             UpdateChangeCounter(false, 1);
+            RecordHealthChange(false, 1, bottomPlayerHealth);
         }
         
         await JS.InvokeVoidAsync("playHealthIncrease");
@@ -267,11 +346,13 @@
         {
             topPlayerHealth--;
             UpdateChangeCounter(true, -1);
+            RecordHealthChange(true, -1, topPlayerHealth);
         }
         else
         {
             bottomPlayerHealth--;
             UpdateChangeCounter(false, -1);
+            RecordHealthChange(false, -1, bottomPlayerHealth);
         }
         
         await JS.InvokeVoidAsync("playHealthDecrease");
@@ -284,11 +365,13 @@
         {
             topPlayerHealth += change;
             UpdateChangeCounter(true, change);
+            RecordHealthChange(true, change, topPlayerHealth);
         }
         else
         {
             bottomPlayerHealth += change;
             UpdateChangeCounter(false, change);
+            RecordHealthChange(false, change, bottomPlayerHealth);
         }
         
         await JS.InvokeVoidAsync(isIncrease ? "playHealthIncrease" : "playHealthDecrease");
@@ -389,6 +472,29 @@
         await InvokeAsync(StateHasChanged);
     }
 
+    private void OpenHistory()
+    {
+        isHistoryOpen = true;
+        isSettingsOpen = false;
+        StateHasChanged();
+    }
+
+    private void CloseHistory()
+    {
+        isHistoryOpen = false;
+        StateHasChanged();
+    }
+
+    private void RecordHealthChange(bool isTopPlayer, int changeAmount, int newHealth)
+    {
+        healthHistory.Add(new HealthChange
+        {
+            IsTopPlayer = isTopPlayer,
+            ChangeAmount = changeAmount,
+            NewHealth = newHealth
+        });
+    }
+
     private async void ResetHealth()
     {
         topPlayerHealth = StartHealth;
@@ -399,6 +505,9 @@
         bottomPlayerChangeCounter = 0;
         topPlayerHasChanged = false;
         bottomPlayerHasChanged = false;
+        
+        // Clear health history
+        healthHistory.Clear();
         
         // Stop any running timers
         topPlayerChangeTimer?.Dispose();
