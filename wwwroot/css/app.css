@@ -904,24 +904,10 @@ code {
     width: 100vw;
     height: 100vh;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(12px) saturate(1.2);
-    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    background: #000000;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: rollFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes rollFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
 }
 
 .roll-container {
@@ -945,11 +931,15 @@ code {
 }
 
 .roll-player.top-player {
-    background: linear-gradient(135deg, rgba(231, 76, 111, 0.1) 0%, rgba(231, 76, 111, 0.05) 100%);
+    background: #000000;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .roll-player.bottom-player {
-    background: linear-gradient(135deg, rgba(76, 111, 231, 0.1) 0%, rgba(76, 111, 231, 0.05) 100%);
+    background: #000000;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .roll-player.winner {
@@ -970,11 +960,15 @@ code {
 .roll-player.top-player.winner {
     background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
     animation: winnerPulse 0.8s ease-in-out infinite;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .roll-player.bottom-player.winner {
     background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
     animation: winnerPulse 0.8s ease-in-out infinite;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .roll-number {
