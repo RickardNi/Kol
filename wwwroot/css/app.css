@@ -922,7 +922,7 @@ code {
 }
 
 .roll-player.winner {
-    animation: winnerPulse 0.8s ease-in-out infinite;
+    animation: winnerPulse 0.8s ease-in-out infinite 0.5s;
 }
 
 @keyframes winnerPulse {
@@ -935,8 +935,8 @@ code {
 }
 
 .roll-player.top-player.winner {
-    background: #00ff00;
-    animation: winnerPulse 0.8s ease-in-out infinite;
+    background: transparent;
+    animation: winnerPulse 0.8s ease-in-out infinite 0.5s;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     /* Add cutout for roll close button at top edge (towards center) - adjusted for rotation */
@@ -945,8 +945,8 @@ code {
 }
 
 .roll-player.bottom-player.winner {
-    background: #00ff00;
-    animation: winnerPulse 0.8s ease-in-out infinite;
+    background: transparent;
+    animation: winnerPulse 0.8s ease-in-out infinite 0.5s;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     /* Add cutout for roll close button at top edge (towards center) */
