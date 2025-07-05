@@ -92,7 +92,7 @@
             </div>
             <div class="history-content">
                 <div class="history-column left-column">
-                    <div class="player-label">Red Player</div>
+                    <div class="player-label">Red</div>
                     <div class="history-entries">
                         @{
                             var bottomPlayerHistory = healthHistory.Where(h => !h.IsTopPlayer).Take(20).ToList();
@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <div class="history-column right-column">
-                    <div class="player-label">Blue Player</div>
+                    <div class="player-label">Blue</div>
                     <div class="history-entries">
                         @{
                             var topPlayerHistory = healthHistory.Where(h => h.IsTopPlayer).Take(20).ToList();
@@ -328,13 +328,11 @@
         {
             topPlayerHealth++;
             UpdateChangeCounter(true, 1);
-            RecordHealthChange(true, 1, topPlayerHealth);
         }
         else
         {
             bottomPlayerHealth++;
             UpdateChangeCounter(false, 1);
-            RecordHealthChange(false, 1, bottomPlayerHealth);
         }
         
         await JS.InvokeVoidAsync("playHealthIncrease");
@@ -346,13 +344,11 @@
         {
             topPlayerHealth--;
             UpdateChangeCounter(true, -1);
-            RecordHealthChange(true, -1, topPlayerHealth);
         }
         else
         {
             bottomPlayerHealth--;
             UpdateChangeCounter(false, -1);
-            RecordHealthChange(false, -1, bottomPlayerHealth);
         }
         
         await JS.InvokeVoidAsync("playHealthDecrease");
@@ -365,13 +361,11 @@
         {
             topPlayerHealth += change;
             UpdateChangeCounter(true, change);
-            RecordHealthChange(true, change, topPlayerHealth);
         }
         else
         {
             bottomPlayerHealth += change;
             UpdateChangeCounter(false, change);
-            RecordHealthChange(false, change, bottomPlayerHealth);
         }
         
         await JS.InvokeVoidAsync(isIncrease ? "playHealthIncrease" : "playHealthDecrease");
@@ -420,11 +414,21 @@
     {
         if (isTopPlayer)
         {
+            // Record the bundled change before resetting
+            if (topPlayerChangeCounter != 0)
+            {
+                RecordHealthChange(true, topPlayerChangeCounter, topPlayerHealth);
+            }
             topPlayerChangeCounter = 0;
             topPlayerHasChanged = false;
         }
         else
         {
+            // Record the bundled change before resetting
+            if (bottomPlayerChangeCounter != 0)
+            {
+                RecordHealthChange(false, bottomPlayerChangeCounter, bottomPlayerHealth);
+            }
             bottomPlayerChangeCounter = 0;
             bottomPlayerHasChanged = false;
         }
