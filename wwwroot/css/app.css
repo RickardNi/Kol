@@ -1040,7 +1040,7 @@ code {
 }
 
 .roll-close-btn:active {
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
     transform: translate(-50%, -50%) scale(0.95);
 }
 
@@ -1053,7 +1053,7 @@ code {
 }
 
 .roll-close-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
     transform: translate(-50%, -50%) scale(1.05);
 }
 
