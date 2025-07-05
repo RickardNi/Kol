@@ -76,9 +76,7 @@
 }
 
 @* History Display Overlay *@
-@if (isHistoryOpen)
-{
-    <div class="history-overlay">
+<div class="history-overlay @(isHistoryOpen ? "open" : "")">
         <div class="history-container">
             <div class="history-header">
                 <h2>History</h2>
@@ -161,7 +159,6 @@
             </div>
         </div>
     </div>
-}
 
 <div class="settings-container @(isSettingsOpen ? "open" : "")">
     <div class="popup-grid">

@@ -1100,6 +1100,16 @@ code {
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.history-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
 }
 
 .history-container {
@@ -1208,8 +1218,6 @@ code {
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
 }
 
 .history-entry {
@@ -1266,6 +1274,7 @@ code {
     display: flex;
     align-items: center;
     border-radius: 8px;
+    min-height: 1rem;
 }
 
 .change-amount {
