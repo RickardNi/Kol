@@ -52,14 +52,17 @@
 @* Roll Display Overlay *@
 @if (isRollMode)
 {
-    <div class="roll-overlay">
+    <div class="roll-overlay @(isRollContentHidden ? "content-hidden" : "")">
         <div class="roll-container">
-            <div class="roll-player top-player @(topPlayerRoll > bottomPlayerRoll ? "winner" : "")">
-                <span class="roll-number">@topPlayerRoll</span>
-            </div>
-            <div class="roll-player bottom-player @(bottomPlayerRoll > topPlayerRoll ? "winner" : "")">
-                <span class="roll-number">@bottomPlayerRoll</span>
-            </div>
+            @if (!isRollContentHidden)
+            {
+                <div class="roll-player top-player @(topPlayerRoll > bottomPlayerRoll ? "winner" : "")">
+                    <span class="roll-number">@topPlayerRoll</span>
+                </div>
+                <div class="roll-player bottom-player @(bottomPlayerRoll > topPlayerRoll ? "winner" : "")">
+                    <span class="roll-number">@bottomPlayerRoll</span>
+                </div>
+            }
             <button class="roll-close-btn @(isRollCloseClicked ? "clicked" : "")" @onclick="CloseRoll" aria-label="Close roll">
                 <svg class="close-icon lucide lucide-circle-x-icon lucide-circle-x" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/>
@@ -252,6 +255,7 @@
 
     private bool isLongPress = false;
     private bool isRollCloseClicked = false;
+    private bool isRollContentHidden = false;
     private bool isHistoryOpen = false;
     private string buildNumber = "dev";
     
@@ -477,7 +481,11 @@
 
     private async void CloseRoll()
     {
-        // Trigger the animation
+        // Hide the roll content immediately
+        isRollContentHidden = true;
+        StateHasChanged();
+        
+        // Trigger the close button animation
         isRollCloseClicked = true;
         StateHasChanged();
         
@@ -489,6 +497,7 @@
         topPlayerRoll = 0;
         bottomPlayerRoll = 0;
         isRollCloseClicked = false;
+        isRollContentHidden = false;
         
         // Ensure UI updates
         await InvokeAsync(StateHasChanged);
