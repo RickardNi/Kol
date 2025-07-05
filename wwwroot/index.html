@@ -94,6 +94,29 @@
           console.log('Development mode - skipping service worker registration');
         }
       }
+
+      // Function to trigger install prompt (can be called from UI)
+      window.triggerInstall = function() {
+          if (deferredPrompt) {
+              deferredPrompt.prompt();
+              deferredPrompt.userChoice.then((choiceResult) => {
+                  if (choiceResult.outcome === 'accepted') {
+                      console.log('User accepted the install prompt');
+                  } else {
+                      console.log('User dismissed the install prompt');
+                  }
+                  deferredPrompt = null;
+              });
+          }
+      };
+
+      // Function to scroll history to bottom
+      window.scrollHistoryToBottom = function() {
+          const historyScrollable = document.querySelector('.history-scrollable');
+          if (historyScrollable) {
+              historyScrollable.scrollTop = historyScrollable.scrollHeight;
+          }
+      };
     </script>
 </body>
 

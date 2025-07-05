@@ -1082,6 +1082,7 @@ code {
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    overflow-x: hidden;
 }
 
 .history-overlay.open .history-container {
@@ -1147,9 +1148,42 @@ code {
 
 .history-content {
     display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.history-start-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 1rem 0;
+}
+
+.history-start {
+    flex: 0 0 48%;
+    background: transparent;
+    color: #0096ff;
+    font-weight: 800;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.left-start {
+    color: #4c6fe7;
+}
+
+.right-start {
+    color: #e74c6f;
+}
+
+.history-scrollable {
+    display: flex;
     flex: 1;
     gap: 1rem;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     justify-content: center;
 }
 
@@ -1158,6 +1192,14 @@ code {
     display: flex;
     flex-direction: column;
     min-height: 0;
+}
+
+.history-entries {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
 }
 
 .player-label {
@@ -1174,15 +1216,6 @@ code {
 
 .right-column .player-label {
     color: #e74c6f;
-}
-
-.history-entries {
-    flex: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
 }
 
 .history-entry {
@@ -1274,20 +1307,20 @@ code {
 }
 
 /* Scrollbar styling */
-.history-entries::-webkit-scrollbar {
-    width: 6px;
+.history-scrollable::-webkit-scrollbar {
+    width: 4px;
 }
 
-.history-entries::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+.history-scrollable::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
 }
 
-.history-entries::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 3px;
+.history-scrollable::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
 }
 
-.history-entries::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
+.history-scrollable::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
 }
