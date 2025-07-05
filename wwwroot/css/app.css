@@ -1230,6 +1230,7 @@ code {
     font-weight: 600;
     justify-content: center;
     border: 1px solid rgba(0, 150, 255, 0.4);
+    height: 1rem;
 }
 
 .history-entry.current {
@@ -1244,6 +1245,7 @@ code {
     background: rgba(255, 255, 255, 0.05);
     color: var(--neutral-white);
     position: relative;
+    height: 1rem;
 }
 
 .history-entry.change.positive {
