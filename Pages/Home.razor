@@ -82,7 +82,6 @@
 <div class="history-overlay @(isHistoryOpen ? "open" : "")">
         <div class="history-container">
             <div class="history-header">
-                <h2>History</h2>
                 <button class="history-close-btn" @onclick="CloseHistory" aria-label="Close history">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x-icon lucide-circle-x">
                         <circle cx="12" cy="12" r="10"/>
@@ -93,7 +92,6 @@
             </div>
             <div class="history-content">
                 <div class="history-column left-column">
-                    <div class="player-label">Blue</div>
                     <div class="history-entries">
                         @{
                             var recentHistory = healthHistory.Take(20).ToList();
@@ -127,7 +125,6 @@
                     </div>
                 </div>
                 <div class="history-column right-column">
-                    <div class="player-label">Red</div>
                     <div class="history-entries">
                         @{
                             if (recentHistory.Count > 0)
