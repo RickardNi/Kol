@@ -51,7 +51,7 @@
       window.getBuildNumber = function() {
         const buildNumber = '${BUILD_NUMBER}';
         // If the template variable wasn't replaced (development), return 'dev'
-        return buildNumber === '${BUILD_NUMBER}' ? 'dev' : buildNumber;
+        return buildNumber.startsWith('${') ? 'dev' : buildNumber;
       };
 
       // Service worker registration with update detection
