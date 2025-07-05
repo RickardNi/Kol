@@ -1100,16 +1100,13 @@ code {
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
     visibility: hidden;
-    transform: scale(0.9);
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
 .history-overlay.open {
-    opacity: 1;
     visibility: visible;
-    transform: scale(1);
+    pointer-events: auto;
 }
 
 .history-container {
@@ -1123,6 +1120,14 @@ code {
     border-radius: 20px;
     padding: 2rem;
     position: relative;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.history-overlay.open .history-container {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .history-header {
