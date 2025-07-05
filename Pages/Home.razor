@@ -151,6 +151,16 @@
         
         // Start long press timer
         await JS.InvokeVoidAsync("startLongPress", DotNetObjectReference.Create(this), isTop);
+        
+        // Force enable wake lock on user interaction for better browser compatibility
+        try
+        {
+            await JS.InvokeVoidAsync("wakeLockManager.forceEnable");
+        }
+        catch
+        {
+            // Silently handle wake lock failures
+        }
     }
 
     private async void HandlePointerUp(bool isTopPlayer, bool isTop, bool pressed)
