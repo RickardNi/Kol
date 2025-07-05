@@ -1175,11 +1175,11 @@ code {
 }
 
 .left-start {
-    color: #4c6fe7;
+    color: var(--bottom-player-color);
 }
 
 .right-start {
-    color: #e74c6f;
+    color: var(--top-player-color);
 }
 
 .history-scrollable {
@@ -1242,18 +1242,6 @@ code {
     justify-content: center;
     border: none;
     height: 1rem;
-}
-
-.left-column .history-entry.start {
-    background: transparent;
-    color: #4c6fe7;
-    border: none;
-}
-
-.right-column .history-entry.start {
-    background: transparent;
-    color: #e74c6f;
-    border: none;
 }
 
 .history-entry.current {
