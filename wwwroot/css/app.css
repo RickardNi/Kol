@@ -143,6 +143,11 @@ html, body {
     background: var(--background-black);
     /* Ensure it covers the entire screen including behind the status bar */
     box-sizing: border-box;
+    transition: filter 0.3s ease, opacity 0.5s ease;
+}
+
+.health-tracker.history-open {
+    opacity: 0;
 }
 
 /* ===== PWA FULLSCREEN FIXES ===== */

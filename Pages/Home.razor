@@ -16,7 +16,7 @@
     private int bottomPlayerRoll = 0;
 }
 
-<div class="health-tracker @(isSettingsOpen ? "blurred" : null)">
+<div class="health-tracker @(isSettingsOpen ? "blurred" : null) @(isHistoryOpen ? "history-open" : null)">
     <div class="player topPlayer">
         <div class="tap-zone top @(topPlayerTopPressed ? "pressed" : null)"
              @onpointerdown="() => HandlePointerDown(true, true, true)"
