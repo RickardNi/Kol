@@ -1194,11 +1194,11 @@ code {
 }
 
 .left-column .player-label {
-    color: #e74c6f;
+    color: #4c6fe7;
 }
 
 .right-column .player-label {
-    color: #4c6fe7;
+    color: #e74c6f;
 }
 
 .history-entries {
@@ -1225,10 +1225,19 @@ code {
 }
 
 .history-entry.start {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--neutral-white);
+    background: rgba(0, 150, 255, 0.2);
+    color: #0096ff;
     font-weight: 600;
     justify-content: center;
+    border: 1px solid rgba(0, 150, 255, 0.4);
+}
+
+.history-entry.current {
+    background: rgba(0, 150, 255, 0.25);
+    color: #0096ff;
+    font-weight: 600;
+    justify-content: center;
+    border: 2px solid rgba(0, 150, 255, 0.5);
 }
 
 .history-entry.change {
@@ -1244,6 +1253,16 @@ code {
 .history-entry.change.negative {
     background: rgba(244, 67, 54, 0.2);
     border-left: 3px solid #F44336;
+}
+
+.history-entry.empty {
+    background: transparent;
+    border: none;
+    padding: 0.75rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
 }
 
 .change-amount {

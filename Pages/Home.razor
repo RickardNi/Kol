@@ -92,19 +92,29 @@
             </div>
             <div class="history-content">
                 <div class="history-column left-column">
-                    <div class="player-label">Red</div>
+                    <div class="player-label">Blue</div>
                     <div class="history-entries">
                         @{
-                            var bottomPlayerHistory = healthHistory.Where(h => !h.IsTopPlayer).Take(20).ToList();
-                            if (bottomPlayerHistory.Count > 0)
+                            var recentHistory = healthHistory.Take(20).ToList();
+                            if (recentHistory.Count > 0)
                             {
                                 <div class="history-entry start">@StartHealth</div>
-                                foreach (var change in bottomPlayerHistory)
+                                foreach (var change in recentHistory)
                                 {
-                                    <div class="history-entry change @(change.ChangeAmount > 0 ? "positive" : "negative")">
-                                        <span class="change-amount">@(change.ChangeAmount > 0 ? "+" : "")@change.ChangeAmount</span>
-                                        <span class="new-health">@change.NewHealth</span>
-                                    </div>
+                                    if (!change.IsTopPlayer)
+                                    {
+                                        <div class="history-entry change @(change.ChangeAmount > 0 ? "positive" : "negative")">
+                                            <span class="change-amount">@(change.ChangeAmount > 0 ? "+" : "")@change.ChangeAmount</span>
+                                            <span class="new-health">@change.NewHealth</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="history-entry empty">
+                                            <span class="change-amount">&nbsp;</span>
+                                            <span class="new-health">&nbsp;</span>
+                                        </div>
+                                    }
                                 }
                             }
                             else
@@ -112,28 +122,45 @@
                                 <div class="history-entry start">@StartHealth</div>
                             }
                         }
+                        @if (recentHistory.Count > 0)
+                        {
+                            <div class="history-entry current">@bottomPlayerHealth</div>
+                        }
                     </div>
                 </div>
                 <div class="history-column right-column">
-                    <div class="player-label">Blue</div>
+                    <div class="player-label">Red</div>
                     <div class="history-entries">
                         @{
-                            var topPlayerHistory = healthHistory.Where(h => h.IsTopPlayer).Take(20).ToList();
-                            if (topPlayerHistory.Count > 0)
+                            if (recentHistory.Count > 0)
                             {
                                 <div class="history-entry start">@StartHealth</div>
-                                foreach (var change in topPlayerHistory)
+                                foreach (var change in recentHistory)
                                 {
-                                    <div class="history-entry change @(change.ChangeAmount > 0 ? "positive" : "negative")">
-                                        <span class="change-amount">@(change.ChangeAmount > 0 ? "+" : "")@change.ChangeAmount</span>
-                                        <span class="new-health">@change.NewHealth</span>
-                                    </div>
+                                    if (change.IsTopPlayer)
+                                    {
+                                        <div class="history-entry change @(change.ChangeAmount > 0 ? "positive" : "negative")">
+                                            <span class="change-amount">@(change.ChangeAmount > 0 ? "+" : "")@change.ChangeAmount</span>
+                                            <span class="new-health">@change.NewHealth</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="history-entry empty">
+                                            <span class="change-amount">&nbsp;</span>
+                                            <span class="new-health">&nbsp;</span>
+                                        </div>
+                                    }
                                 }
                             }
                             else
                             {
                                 <div class="history-entry start">@StartHealth</div>
                             }
+                        }
+                        @if (recentHistory.Count > 0)
+                        {
+                            <div class="history-entry current">@topPlayerHealth</div>
                         }
                     </div>
                 </div>
