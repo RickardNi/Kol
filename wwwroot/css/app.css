@@ -1243,6 +1243,7 @@ code {
 .history-entry.change {
     background: rgba(255, 255, 255, 0.05);
     color: var(--neutral-white);
+    position: relative;
 }
 
 .history-entry.change.positive {
@@ -1267,11 +1268,20 @@ code {
 
 .change-amount {
     font-weight: 600;
+    font-size: 0.9rem;
+    position: absolute;
+    left: 25%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .new-health {
     font-weight: 400;
     opacity: 0.8;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* Scrollbar styling */
