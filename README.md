@@ -46,3 +46,13 @@ Yes, since my previous vibe coding project **[MagicDeckStats](https://rickardni.
 
 ### **Can you add support for Commander?**
 No, I play Commander extremely rarely and I want to keep the app as simple as possible. It already lacks the feature to track a lot of counters, so more players is extremely low on the priority, and I doubt it will ever happen.
+
+## Icons
+
+This project uses icons from [Lucide](https://lucide.dev/), a beautiful & consistent icon toolkit made by the community.
+
+- **License**: ISC License
+- **Repository**: https://github.com/lucide-icons/lucide
+- **Website**: https://lucide.dev/
+
+Icons are used under the terms of the ISC License. See the [Lucide license](https://github.com/lucide-icons/lucide/blob/main/LICENSE) for full details.
