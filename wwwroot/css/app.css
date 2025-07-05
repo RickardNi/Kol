@@ -283,8 +283,9 @@ html, body {
 
 .tap-zone.bottom {
     bottom: 0;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    /* Only round the top edges (towards the middle) */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 /* Instantly fade in (no transition) when pressed */
