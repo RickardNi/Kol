@@ -60,11 +60,15 @@
             <div class="roll-player bottom-player @(bottomPlayerRoll > topPlayerRoll ? "winner" : "")">
                 <span class="roll-number">@bottomPlayerRoll</span>
             </div>
-            <button class="roll-close-btn" @onclick="CloseRoll" aria-label="Close roll">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x-icon lucide-circle-x">
+            <button class="roll-close-btn @(isRollCloseClicked ? "clicked" : "")" @onclick="CloseRoll" aria-label="Close roll">
+                <svg class="close-icon lucide lucide-circle-x-icon lucide-circle-x" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/>
                     <path d="m15 9-6 6"/>
                     <path d="m9 9 6 6"/>
+                </svg>
+                <svg class="settings-icon lucide lucide-bolt-icon lucide-bolt" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <circle cx="12" cy="12" r="4"/>
                 </svg>
             </button>
         </div>
@@ -162,6 +166,7 @@
     private bool bottomPlayerBottomPressed = false;
 
     private bool isLongPress = false;
+    private bool isRollCloseClicked = false;
     private string buildNumber = "dev";
 
     private void ToggleSettings()
@@ -367,9 +372,18 @@
 
     private async void CloseRoll()
     {
+        // Trigger the animation
+        isRollCloseClicked = true;
+        StateHasChanged();
+        
+        // Wait for animation to complete
+        await Task.Delay(300);
+        
+        // Close the roll overlay
         isRollMode = false;
         topPlayerRoll = 0;
         bottomPlayerRoll = 0;
+        isRollCloseClicked = false;
         
         // Ensure UI updates
         await InvokeAsync(StateHasChanged);

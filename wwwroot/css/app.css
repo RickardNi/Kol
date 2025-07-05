@@ -1060,4 +1060,30 @@ code {
 .roll-close-btn svg {
     display: block;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--neutral-white);
+}
+
+.roll-close-btn .close-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.roll-close-btn .settings-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.roll-close-btn.clicked .close-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.roll-close-btn.clicked .settings-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
 }
