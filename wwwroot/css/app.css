@@ -876,3 +876,28 @@ code {
     transform: translateY(0);
     transition-delay: 0.4s;
 }
+
+.build-number-close {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 50px));
+    font-family: var(--app-font-family);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 50px)) translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.settings-container.open .build-number-close {
+    opacity: 1;
+    transform: translate(-50%, calc(-50% + 50px)) translateY(0);
+    transition-delay: 0.4s;
+}
