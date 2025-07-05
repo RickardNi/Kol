@@ -913,22 +913,22 @@ code {
 
 @keyframes winnerPulse {
     0%, 100% {
-        background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
+        background: #00ff00;
     }
     50% {
-        background: linear-gradient(135deg, rgba(76, 175, 80, 0.4) 0%, rgba(76, 175, 80, 0.2) 100%);
+        background: #00cc00;
     }
 }
 
 .roll-player.top-player.winner {
-    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
+    background: #00ff00;
     animation: winnerPulse 0.8s ease-in-out infinite;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 
 .roll-player.bottom-player.winner {
-    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
+    background: #00ff00;
     animation: winnerPulse 0.8s ease-in-out infinite;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -950,7 +950,7 @@ code {
 
 .roll-player:not(.winner) .roll-number {
     color: rgba(255, 255, 255, 0.6);
-    font-size: 10rem;
+    font-size: 6rem;
 }
 
 .roll-player.winner .roll-number {
