@@ -162,6 +162,27 @@
     text-align: right;
 }
 
+.github-link {
+    font-family: var(--app-font-family);
+    font-size: 1rem;
+    font-weight: 400;
+    color: #0096ff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    min-width: 80px;
+    text-align: right;
+    transition: color 0.2s ease;
+}
+
+.github-link:hover {
+    color: #00b3ff;
+}
+
+.github-link:active {
+    color: #007acc;
+}
+
 /* Scrollbar styling */
 .settings-content::-webkit-scrollbar {
     width: 4px;
