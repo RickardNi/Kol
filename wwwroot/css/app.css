@@ -291,6 +291,19 @@ html, body {
     /* No rounded corners for bottom sections */
 }
 
+/* Add cutout only for zones that overlap with the quick menu button */
+.topPlayer .tap-zone.top {
+    /* Top player's top zone (rotated, so actually at bottom of screen) needs cutout at top edge (towards center) */
+    -webkit-mask: radial-gradient(circle 30px at 50% 0%, transparent 30px, black 30px);
+    mask: radial-gradient(circle 30px at 50% 0%, transparent 30px, black 30px);
+}
+
+.bottomPlayer .tap-zone.top {
+    /* Bottom player's top zone needs cutout at top edge */
+    -webkit-mask: radial-gradient(circle 30px at 50% 0%, transparent 30px, black 30px);
+    mask: radial-gradient(circle 30px at 50% 0%, transparent 30px, black 30px);
+}
+
 /* Instantly fade in (no transition) when pressed */
 .tap-zone.pressed {
     --tap-zone-transition: 0s;
