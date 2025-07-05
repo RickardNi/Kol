@@ -51,6 +51,13 @@
       if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
         navigator.serviceWorker.register('service-worker.js');
       }
+
+      // Simple build number function
+      window.getBuildNumber = function() {
+        const buildNumber = '${BUILD_NUMBER}';
+        // If the template variable wasn't replaced (development), return 'dev'
+        return buildNumber === '${BUILD_NUMBER}' ? 'dev' : buildNumber;
+      };
     </script>
 </body>
 

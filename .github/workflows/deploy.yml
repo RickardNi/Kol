@@ -34,9 +34,10 @@ jobs:
     - name: Publish
       run: dotnet publish Kol.csproj --configuration Release --output ./publish
 
-    - name: Update Service Worker Build Number
+    - name: Update Build Numbers
       run: |
         sed -i "s/\${BUILD_NUMBER}/${{ github.run_number }}/g" publish/wwwroot/service-worker.js
+        sed -i "s/\${BUILD_NUMBER}/${{ github.run_number }}/g" publish/wwwroot/index.html
 
     - name: Change base-tag in index.html
       run: |

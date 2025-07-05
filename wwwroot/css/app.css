@@ -857,13 +857,15 @@ code {
     -ms-user-select: none;
 }
 
-.debug-info {
+.build-number {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
     font-family: var(--app-font-family);
     font-size: 0.75rem;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.4);
+    text-align: right;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -873,7 +875,7 @@ code {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.settings-container.open .debug-info {
+.settings-container.open .build-number {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.4s;

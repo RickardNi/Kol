@@ -99,6 +99,7 @@
         </div>
     </div>
 
+    <div class="build-number">@buildNumber</div>
 </div>
 
 <div class="toggle-btn-container">
@@ -135,6 +136,7 @@
     private bool bottomPlayerBottomPressed = false;
 
     private bool isLongPress = false;
+    private string buildNumber = "dev";
 
     private void ToggleSettings()
     {
@@ -349,6 +351,18 @@
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to enable wake lock: {ex.Message}");
+            }
+
+            // Get build number
+            try
+            {
+                buildNumber = await JS.InvokeAsync<string>("getBuildNumber");
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to get build number: {ex.Message}");
+                buildNumber = "dev";
             }
         }
     }
