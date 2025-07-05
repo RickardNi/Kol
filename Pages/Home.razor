@@ -10,13 +10,13 @@
 
 @* Popup state *@
 @code {
-    private bool isSettingsOpen = false;
+    private bool isQuickMenuOpen = false;
     private bool isRollMode = false;
     private int topPlayerRoll = 0;
     private int bottomPlayerRoll = 0;
 }
 
-<div class="health-tracker @(isSettingsOpen ? "blurred" : null) @(isHistoryOpen ? "history-open" : null)">
+<div class="health-tracker @(isQuickMenuOpen ? "blurred" : null) @(isHistoryOpen ? "history-open" : null)">
     <div class="player topPlayer">
         <div class="tap-zone top @(topPlayerTopPressed ? "pressed" : null)"
              @onpointerdown="() => HandlePointerDown(true, true, true)"
@@ -69,7 +69,7 @@
                     <path d="m15 9-6 6"/>
                     <path d="m9 9 6 6"/>
                 </svg>
-                <svg class="settings-icon lucide lucide-bolt-icon lucide-bolt" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="quick-menu-icon lucide lucide-bolt-icon lucide-bolt" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
                     <circle cx="12" cy="12" r="4"/>
                 </svg>
@@ -154,7 +154,7 @@
         </div>
     </div>
 
-<div class="settings-container @(isSettingsOpen ? "open" : "")">
+<div class="quick-menu-container @(isQuickMenuOpen ? "open" : "")">
     <div class="popup-grid">
         <div class="popup-quadrant top-left">
             <div class="reset-control">
@@ -212,8 +212,8 @@
 </div>
 
 <div class="toggle-btn-container">
-    <button class="toggle-btn @(isSettingsOpen ? "close" : "settings")" @onclick="ToggleSettings" aria-label="@(isSettingsOpen ? "Close settings" : "Open settings")">
-        <svg class="settings-icon lucide lucide-bolt-icon lucide-bolt" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <button class="toggle-btn @(isQuickMenuOpen ? "close" : "quick-menu")" @onclick="ToggleQuickMenu" aria-label="@(isQuickMenuOpen ? "Close quick menu" : "Open quick menu")">
+        <svg class="quick-menu-icon lucide lucide-bolt-icon lucide-bolt" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
             <circle cx="12" cy="12" r="4"/>
         </svg>
@@ -259,9 +259,9 @@
         public int NewHealth { get; set; }
     }
 
-    private void ToggleSettings()
+    private void ToggleQuickMenu()
     {
-        isSettingsOpen = !isSettingsOpen;
+        isQuickMenuOpen = !isQuickMenuOpen;
         StateHasChanged();
     }
 
@@ -461,7 +461,7 @@
         
         // Enable roll mode and close popup
         isRollMode = true;
-        isSettingsOpen = false;
+        isQuickMenuOpen = false;
         
         // Play roll sound effect
         await JS.InvokeVoidAsync("playRollSound");
@@ -544,7 +544,7 @@
         await JS.InvokeVoidAsync("playResetSound");
         
         // Close the popup
-        isSettingsOpen = false;
+        isQuickMenuOpen = false;
         
         // Ensure UI updates
         await InvokeAsync(StateHasChanged);

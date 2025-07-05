@@ -409,7 +409,7 @@ code {
 }
 
 /* ===== SETTINGS POPUP & GLASS EFFECT ===== */
-.settings-container {
+.quick-menu-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -429,7 +429,7 @@ code {
     transform: scale(0.95);
 }
 
-.settings-container::before {
+.quick-menu-container::before {
     content: '';
     position: fixed;
     top: 0;
@@ -445,13 +445,13 @@ code {
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.settings-container.open {
+.quick-menu-container.open {
     opacity: 1;
     visibility: visible;
     transform: scale(1);
 }
 
-.settings-container.open::before {
+.quick-menu-container.open::before {
     opacity: 1;
 }
 
@@ -474,24 +474,24 @@ code {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.settings-container.open .popup-quadrant {
+.quick-menu-container.open .popup-quadrant {
     opacity: 1;
     transform: scale(1) translateY(0);
 }
 
-.settings-container.open .popup-quadrant.top-left {
+.quick-menu-container.open .popup-quadrant.top-left {
     transition-delay: 0.1s;
 }
 
-.settings-container.open .popup-quadrant.top-right {
+.quick-menu-container.open .popup-quadrant.top-right {
     transition-delay: 0.15s;
 }
 
-.settings-container.open .popup-quadrant.bottom-left {
+.quick-menu-container.open .popup-quadrant.bottom-left {
     transition-delay: 0.2s;
 }
 
-.settings-container.open .popup-quadrant.bottom-right {
+.quick-menu-container.open .popup-quadrant.bottom-right {
     transition-delay: 0.25s;
 }
 
@@ -586,7 +586,7 @@ code {
     color: var(--neutral-white);
 }
 
-.toggle-btn .settings-icon {
+.toggle-btn .quick-menu-icon {
     opacity: 1;
     transform: translate(-50%, -50%) rotate(0deg);
 }
@@ -596,7 +596,7 @@ code {
     transform: translate(-50%, -50%) rotate(-90deg);
 }
 
-.toggle-btn.close .settings-icon {
+.toggle-btn.close .quick-menu-icon {
     opacity: 0;
     transform: translate(-50%, -50%) rotate(90deg);
 }
@@ -827,7 +827,7 @@ code {
     opacity: 0;
 }
 
-.settings-container.open .build-number {
+.quick-menu-container.open .build-number {
     opacity: 1;
 }
 
@@ -848,7 +848,7 @@ code {
     opacity: 0;
 }
 
-.settings-container.open .build-number-close {
+.quick-menu-container.open .build-number-close {
     opacity: 1;
 }
 
@@ -1038,7 +1038,7 @@ code {
     transform: translate(-50%, -50%) rotate(0deg);
 }
 
-.roll-close-btn .settings-icon {
+.roll-close-btn .quick-menu-icon {
     opacity: 0;
     transform: translate(-50%, -50%) rotate(-90deg);
 }
@@ -1048,7 +1048,7 @@ code {
     transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.roll-close-btn.clicked .settings-icon {
+.roll-close-btn.clicked .quick-menu-icon {
     opacity: 1;
     transform: translate(-50%, -50%) rotate(0deg);
 }
@@ -1327,4 +1327,25 @@ code {
 
 .history-scrollable::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.25);
+}
+
+.toggle-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.toggle-label {
+    font-family: var(--app-font-family);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-white);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    opacity: 0.7;
 }
