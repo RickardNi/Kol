@@ -21,10 +21,10 @@
                         <span class="placeholder">Off</span>
                     </div>
                 </div>
-                <div class="setting-item">
+                <div class="setting-item clickable" @onclick="CycleFont">
                     <label>Font</label>
                     <div class="setting-control">
-                        <span class="placeholder">Oxanium</span>
+                        <span class="placeholder">@CurrentFontName</span>
                     </div>
                 </div>
                 <div class="setting-item">
@@ -52,10 +52,25 @@
     [Parameter] public bool IsOpen { get; set; }
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
     [Parameter] public string BuildNumber { get; set; } = "dev";
+    [Parameter] public EventCallback<string> FontChanged { get; set; }
+
+    private string currentFont = "Oxanium";
+    private readonly string[] availableFonts = { "Oxanium", "Rationale", "Anta" };
+
+    public string CurrentFontName => currentFont == "Oxanium" ? "Oxanium (default)" : currentFont;
 
     private async Task CloseSettings()
     {
         IsOpen = false;
         await IsOpenChanged.InvokeAsync(false);
+    }
+
+    private async Task CycleFont()
+    {
+        var currentIndex = Array.IndexOf(availableFonts, currentFont);
+        var nextIndex = (currentIndex + 1) % availableFonts.Length;
+        currentFont = availableFonts[nextIndex];
+        
+        await FontChanged.InvokeAsync(currentFont);
     }
 } 

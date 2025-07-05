@@ -156,7 +156,7 @@
     </div>
 
 @* Settings Overlay *@
-<Settings IsOpen="isSettingsOpen" IsOpenChanged="HandleSettingsOpenChanged" BuildNumber="@buildNumber" @key="buildNumber" />
+<Settings IsOpen="isSettingsOpen" IsOpenChanged="HandleSettingsOpenChanged" BuildNumber="@buildNumber" FontChanged="HandleFontChanged" @key="buildNumber" />
 
 <div class="quick-menu-container @(isQuickMenuOpen ? "open" : "")">
     <div class="popup-grid">
@@ -527,6 +527,12 @@
     private void HandleSettingsOpenChanged(bool isOpen)
     {
         isSettingsOpen = isOpen;
+        StateHasChanged();
+    }
+
+    private async Task HandleFontChanged(string fontName)
+    {
+        await JS.InvokeVoidAsync("changeFont", fontName);
         StateHasChanged();
     }
 

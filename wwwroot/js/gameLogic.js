@@ -129,6 +129,28 @@
     window.startLongPress = startLongPress;
     window.cancelLongPress = cancelLongPress;
 
+    // Font switching functionality
+    window.changeFont = function(fontName) {
+        const root = document.documentElement;
+        let fontFamily;
+        
+        switch(fontName) {
+            case 'Anta':
+                fontFamily = "'Anta', sans-serif";
+                break;
+            case 'Rationale':
+                fontFamily = "'Rationale', sans-serif";
+                break;
+            case 'Oxanium':
+            default:
+                fontFamily = "'Oxanium', monospace";
+                break;
+        }
+        
+        root.style.setProperty('--app-font-family', fontFamily);
+        console.log('Font changed to:', fontName);
+    };
+
     // PWA Install prompt handling
     let deferredPrompt;
 

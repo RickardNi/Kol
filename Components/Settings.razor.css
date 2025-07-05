@@ -130,8 +130,8 @@
     transition: all 0.2s ease;
 }
 
-.setting-item:hover {
-    background: rgba(255, 255, 255, 0.08);
+.setting-item.clickable {
+    cursor: pointer;
 }
 
 .setting-item label {
