@@ -47,17 +47,57 @@
     <script src="js/wakeLock.js"></script>
     <script src="js/gameLogic.js"></script>
     <script>
-      // Only register service worker in production
-      if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-        navigator.serviceWorker.register('service-worker.js');
-      }
-
       // Simple build number function
       window.getBuildNumber = function() {
         const buildNumber = '${BUILD_NUMBER}';
         // If the template variable wasn't replaced (development), return 'dev'
         return buildNumber === '${BUILD_NUMBER}' ? 'dev' : buildNumber;
       };
+
+      // Service worker registration with update detection
+      if ('serviceWorker' in navigator) {
+        // Only register service worker in production
+        if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+          window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/service-worker.js')
+                  .then(registration => {
+                      console.log('Service Worker registered successfully');
+                      
+                      // Check for updates
+                      registration.addEventListener('updatefound', () => {
+                          const newWorker = registration.installing;
+                          console.log('New service worker found, installing...');
+                          
+                          newWorker.addEventListener('statechange', () => {
+                              if (newWorker.state === 'installed') {
+                                  if (navigator.serviceWorker.controller) {
+                                      // New update available
+                                      console.log('New version available! Refresh to update.');
+                                      // You can show a toast/notification here
+                                      // For automatic update, uncomment the next line:
+                                      // newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                  } else {
+                                      // First time installation
+                                      console.log('Content is now available offline!');
+                                  }
+                              }
+                          });
+                      });
+                      
+                      // Listen for controlling service worker changes
+                      navigator.serviceWorker.addEventListener('controllerchange', () => {
+                          console.log('Controller changed, reloading page...');
+                          window.location.reload();
+                      });
+                  })
+                  .catch(error => {
+                      console.error('Service Worker registration failed:', error);
+                  });
+          });
+        } else {
+          console.log('Development mode - skipping service worker registration');
+        }
+      }
     </script>
 </body>
 
