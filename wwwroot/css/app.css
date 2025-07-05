@@ -30,8 +30,8 @@
     --app-font-family: 'Oxanium', monospace;
     --vh: 1vh;
     --tap-zone-transition: 0.25s;
-    --primary-red: #e74c6f;
-    --primary-blue: #4c6fe7;
+    --top-player-color: #ff0000;
+    --bottom-player-color: #00ff00;
     --success-green: #4CAF50;
     --error-red: #f44336;
     --neutral-white: #ffffff;
@@ -214,13 +214,13 @@ html, body {
 
 .topPlayer {
     background: var(--background-black);
-    color: var(--primary-red);
+    color: var(--top-player-color);
     transform: rotate(180deg);
 }
 
 .bottomPlayer {
     background: var(--background-black);
-    color: var(--primary-blue);
+    color: var(--bottom-player-color);
 }
 
 /* ===== HEALTH DISPLAY ===== */
