@@ -912,6 +912,7 @@ code {
     background: #000000;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    transform: rotate(180deg);
 }
 
 .roll-player.bottom-player {
@@ -938,9 +939,9 @@ code {
     animation: winnerPulse 0.8s ease-in-out infinite;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    /* Add cutout for roll close button at bottom edge (towards center) */
-    -webkit-mask: radial-gradient(circle 30px at 50% 100%, transparent 30px, black 30px);
-    mask: radial-gradient(circle 30px at 50% 100%, transparent 30px, black 30px);
+    /* Add cutout for roll close button at top edge (towards center) - adjusted for rotation */
+    -webkit-mask: radial-gradient(circle 30px at 50% 0%, transparent 30px, black 30px);
+    mask: radial-gradient(circle 30px at 50% 0%, transparent 30px, black 30px);
 }
 
 .roll-player.bottom-player.winner {
