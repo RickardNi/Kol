@@ -360,11 +360,6 @@ html, body {
     display: block;
 }
 
-/* Hide loading elements */
-.loading-progress {
-    display: none;
-}
-
 /* ===== ERROR HANDLING ===== */
 #blazor-error-ui {
     color-scheme: light only;
@@ -395,43 +390,6 @@ html, body {
 
 .blazor-error-boundary::after {
     content: "An error has occurred."
-}
-
-/* ===== LOADING PROGRESS (HIDDEN) ===== */
-.loading-progress {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none; /* Hidden since we don't want to show loading */
-    width: 14rem;
-    height: 14rem;
-    z-index: 100;
-}
-
-.loading-progress circle {
-    fill: none;
-    stroke: #e0e0e0;
-    stroke-width: 1.5rem;
-    transform-origin: 50% 50%;
-    transform: rotate(-90deg);
-}
-
-.loading-progress circle:last-child {
-    stroke: #1b6ec2;
-    stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
-    transition: stroke-dasharray 0.05s ease-in-out;
-}
-
-.loading-progress-text {
-    position: absolute;
-    text-align: center;
-    font-weight: bold;
-    inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
-}
-
-.loading-progress-text:after {
-    content: var(--blazor-load-percentage-text, "Loading");
 }
 
 /* ===== UTILITY STYLES ===== */
