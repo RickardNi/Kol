@@ -573,8 +573,6 @@ code {
     justify-content: center;
 }
 
-
-
 .toggle-btn {
     background: transparent;
     border: none;
@@ -648,8 +646,6 @@ code {
 .toggle-btn.close {
     background: transparent;
 }
-
-
 
 .reset-control {
     display: flex;
@@ -898,4 +894,178 @@ code {
     opacity: 1;
     transform: translate(-50%, calc(-50% + 50px)) translateY(0);
     transition-delay: 0.4s;
+}
+
+/* ===== ROLL OVERLAY ===== */
+.roll-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rollFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes rollFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.roll-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.roll-player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.roll-player.top-player {
+    background: linear-gradient(135deg, rgba(231, 76, 111, 0.1) 0%, rgba(231, 76, 111, 0.05) 100%);
+}
+
+.roll-player.bottom-player {
+    background: linear-gradient(135deg, rgba(76, 111, 231, 0.1) 0%, rgba(76, 111, 231, 0.05) 100%);
+}
+
+.roll-player.winner {
+    animation: winnerPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes winnerPulse {
+    0%, 100% {
+        background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
+        box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+    }
+    50% {
+        background: linear-gradient(135deg, rgba(76, 175, 80, 0.4) 0%, rgba(76, 175, 80, 0.2) 100%);
+        box-shadow: 0 0 40px rgba(76, 175, 80, 0.6);
+    }
+}
+
+.roll-player.top-player.winner {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
+    animation: winnerPulse 0.8s ease-in-out infinite;
+}
+
+.roll-player.bottom-player.winner {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
+    animation: winnerPulse 0.8s ease-in-out infinite;
+}
+
+.roll-number {
+    font-family: var(--app-font-family);
+    font-size: 12rem;
+    font-weight: 700;
+    color: var(--neutral-white);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: rollNumberAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.roll-player:not(.winner) .roll-number {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 10rem;
+}
+
+.roll-player.winner .roll-number {
+    font-size: 16rem;
+}
+
+@keyframes rollNumberAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5) rotate(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.roll-close-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    z-index: 10;
+    animation: closeBtnAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+@keyframes closeBtnAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.roll-close-btn:active {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+.roll-close-btn:focus,
+.roll-close-btn:focus-visible,
+.roll-close-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.roll-close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.roll-close-btn svg {
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }

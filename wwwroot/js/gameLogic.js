@@ -94,10 +94,19 @@
         setTimeout(() => playTone(400, 0.15, 'triangle'), 150);
     }
 
+    function playRollSound() {
+        // Play a dice rolling sound effect
+        playTone(1200, 0.1, 'sawtooth');
+        setTimeout(() => playTone(800, 0.1, 'sawtooth'), 100);
+        setTimeout(() => playTone(600, 0.1, 'sawtooth'), 200);
+        setTimeout(() => playTone(400, 0.2, 'sine'), 300);
+    }
+
     // Expose sound functions globally
     window.playHealthIncrease = playHealthIncrease;
     window.playHealthDecrease = playHealthDecrease;
     window.playResetSound = playResetSound;
+    window.playRollSound = playRollSound;
 
     // Long press detection
     let longPressTimer = null;

@@ -11,6 +11,9 @@
 @* Popup state *@
 @code {
     private bool isSettingsOpen = false;
+    private bool isRollMode = false;
+    private int topPlayerRoll = 0;
+    private int bottomPlayerRoll = 0;
 }
 
 <div class="health-tracker @(isSettingsOpen ? "blurred" : null)">
@@ -46,6 +49,28 @@
     </div>
 </div>
 
+@* Roll Display Overlay *@
+@if (isRollMode)
+{
+    <div class="roll-overlay">
+        <div class="roll-container">
+            <div class="roll-player top-player @(topPlayerRoll > bottomPlayerRoll ? "winner" : "")">
+                <span class="roll-number">@topPlayerRoll</span>
+            </div>
+            <div class="roll-player bottom-player @(bottomPlayerRoll > topPlayerRoll ? "winner" : "")">
+                <span class="roll-number">@bottomPlayerRoll</span>
+            </div>
+            <button class="roll-close-btn" @onclick="CloseRoll" aria-label="Close roll">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x-icon lucide-circle-x">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="m15 9-6 6"/>
+                    <path d="m9 9 6 6"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+}
+
 <div class="settings-container @(isSettingsOpen ? "open" : "")">
     <div class="popup-grid">
         <div class="popup-quadrant top-left">
@@ -73,7 +98,7 @@
         </div>
         <div class="popup-quadrant bottom-left">
             <div class="dice-control">
-                <button class="dice-btn" @onclick="() => {}" aria-label="Roll dice">
+                <button class="dice-btn" @onclick="RollDice" aria-label="Roll dice">
                     <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dices-icon lucide-dices">
                         <rect width="12" height="12" x="2" y="10" rx="2" ry="2"/>
                         <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/>
@@ -83,7 +108,7 @@
                         <path d="M18 9h.01"/>
                     </svg>
                 </button>
-                <span class="dice-label">Dice</span>
+                <span class="dice-label">Roll</span>
             </div>
         </div>
         <div class="popup-quadrant bottom-right">
@@ -317,6 +342,37 @@
         }
         
         InvokeAsync(StateHasChanged);
+    }
+
+    private async void RollDice()
+    {
+        // Generate random numbers between 1 and 100
+        var random = new Random();
+        do
+        {
+            topPlayerRoll = random.Next(1, 101);
+            bottomPlayerRoll = random.Next(1, 101);
+        } while (topPlayerRoll == bottomPlayerRoll); // Ensure numbers are different
+        
+        // Enable roll mode and close popup
+        isRollMode = true;
+        isSettingsOpen = false;
+        
+        // Play roll sound effect
+        await JS.InvokeVoidAsync("playRollSound");
+        
+        // Ensure UI updates
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async void CloseRoll()
+    {
+        isRollMode = false;
+        topPlayerRoll = 0;
+        bottomPlayerRoll = 0;
+        
+        // Ensure UI updates
+        await InvokeAsync(StateHasChanged);
     }
 
     private async void ResetHealth()
