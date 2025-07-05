@@ -156,7 +156,7 @@
     </div>
 
 @* Settings Overlay *@
-<Settings IsOpen="isSettingsOpen" IsOpenChanged="HandleSettingsOpenChanged" BuildNumber="BuildNumber" />
+<Settings IsOpen="isSettingsOpen" IsOpenChanged="HandleSettingsOpenChanged" BuildNumber="@buildNumber" @key="buildNumber" />
 
 <div class="quick-menu-container @(isQuickMenuOpen ? "open" : "")">
     <div class="popup-grid">
