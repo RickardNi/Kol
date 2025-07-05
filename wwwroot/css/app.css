@@ -30,8 +30,8 @@
     --app-font-family: 'Oxanium', monospace;
     --vh: 1vh;
     --tap-zone-transition: 0.25s;
-    --top-player-color: #ff0000;
-    --bottom-player-color: #00ff00;
+    --top-player-color: #e60000;
+    --bottom-player-color: #00cc00;
     --success-green: #4CAF50;
     --error-red: #f44336;
     --neutral-white: #ffffff;
@@ -299,11 +299,11 @@ html, body {
 
 /* Accent color highlighting for pressed zones */
 .topPlayer .tap-zone.pressed {
-    background: rgba(231, 76, 111, 0.8);
+    background: rgba(230, 0, 0, 0.5);
 }
 
 .bottomPlayer .tap-zone.pressed {
-    background: rgba(76, 111, 231, 0.8);
+    background: rgba(0, 204, 0, 0.5);
 }
 
 /* Rounded corners are now always applied to zones closest to middle */
