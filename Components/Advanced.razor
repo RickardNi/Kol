@@ -1,14 +1,23 @@
 @using Microsoft.AspNetCore.Components
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
 
 <div class="advanced-menu-container @(IsOpen ? "open" : "")">
     <div class="popup-grid">
         <div class="popup-section top-left">
             <div class="advanced-control">
-                <button class="advanced-btn" aria-label="D4 die">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pyramid-icon lucide-pyramid">
-                        <path d="M2.5 16.88a1 1 0 0 1-.32-1.43l9-13.02a1 1 0 0 1 1.64 0l9 13.01a1 1 0 0 1-.32 1.44l-8.51 4.86a2 2 0 0 1-1.98 0Z"/>
-                        <path d="M12 2v20"/>
-                    </svg>
+                <button class="advanced-btn @(d4IsRolling ? "rolling" : "")" @onclick="RollD4" aria-label="D4 die">
+                    @if (d4HasResult)
+                    {
+                        <div class="dice-result">@d4Result</div>
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pyramid-icon lucide-pyramid">
+                            <path d="M2.5 16.88a1 1 0 0 1-.32-1.43l9-13.02a1 1 0 0 1 1.64 0l9 13.01a1 1 0 0 1-.32 1.44l-8.51 4.86a2 2 0 0 1-1.98 0Z"/>
+                            <path d="M12 2v20"/>
+                        </svg>
+                    }
                 </button>
                 <span class="advanced-label">d4</span>
             </div>
@@ -124,9 +133,28 @@
     [Parameter] public bool IsOpen { get; set; }
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
 
+    private bool d4IsRolling = false;
+    private bool d4HasResult = false;
+    private int d4Result = 0;
+
     private async Task CloseAdvanced()
     {
         IsOpen = false;
         await IsOpenChanged.InvokeAsync(false);
+    }
+
+    private async Task RollD4()
+    {
+        d4IsRolling = true;
+        d4HasResult = false; // Hide result during roll
+        // Generate the roll result
+        d4Result = new Random().Next(1, 5);
+        
+        // Play roll sound effect
+        await JS.InvokeVoidAsync("playRollSound");
+        
+        await Task.Delay(300); // Wait for the animation to complete
+        d4IsRolling = false;
+        d4HasResult = true; // Show result after animation
     }
 } 
