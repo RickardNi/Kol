@@ -78,11 +78,7 @@
     -ms-user-select: none;
 }
 
-.advanced-control:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-}
+
 
 .advanced-btn {
     background: transparent;
@@ -116,10 +112,7 @@
     background: transparent !important;
 }
 
-.advanced-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.05);
-}
+
 
 .advanced-btn svg {
     display: block;
@@ -178,10 +171,7 @@
     background: transparent !important;
 }
 
-.advanced-close-btn:hover {
-    background: transparent;
-    transform: translate(-50%, -50%) scale(1.05);
-}
+
 
 .advanced-close-btn svg {
     display: block;
