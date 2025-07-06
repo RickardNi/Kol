@@ -630,6 +630,21 @@ code {
     transform: translate(-50%, -50%) rotate(0deg);
 }
 
+.roll-close-btn .quick-menu-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.roll-close-btn.clicked .close-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.roll-close-btn.clicked .quick-menu-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
 
 
 /* ===== HISTORY OVERLAY ===== */
