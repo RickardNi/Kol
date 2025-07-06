@@ -22,10 +22,9 @@
                 <div class="history-column left-column">
                     <div class="history-entries">
                         @{
-                            var recentHistory = HealthHistory.Take(20).ToList();
-                            if (recentHistory.Count > 0)
+                            if (HealthHistory.Count > 0)
                             {
-                                foreach (var change in recentHistory)
+                                foreach (var change in HealthHistory)
                                 {
                                     if (!change.IsTopPlayer)
                                     {
@@ -49,9 +48,9 @@
                 <div class="history-column right-column">
                     <div class="history-entries">
                         @{
-                            if (recentHistory.Count > 0)
+                            if (HealthHistory.Count > 0)
                             {
-                                foreach (var change in recentHistory)
+                                foreach (var change in HealthHistory)
                                 {
                                     if (change.IsTopPlayer)
                                     {

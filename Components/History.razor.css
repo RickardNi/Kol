@@ -43,7 +43,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem 0 1rem 0;
+    margin: 0.5rem 0 0.5rem 0;
 }
 
 .history-header h2 {
@@ -244,21 +244,13 @@
     transform: translate(-50%, -50%);
 }
 
-/* Scrollbar styling */
+/* Hide scrollbar but keep scrollable functionality */
 .history-scrollable::-webkit-scrollbar {
-    width: 4px;
+    width: 0;
+    display: none;
 }
 
-.history-scrollable::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 2px;
-}
-
-.history-scrollable::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 2px;
-}
-
-.history-scrollable::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.25);
+.history-scrollable {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
 } 
