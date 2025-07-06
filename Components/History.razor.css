@@ -11,6 +11,7 @@
     justify-content: center;
     visibility: hidden;
     pointer-events: none;
+    overscroll-behavior: contain;
 }
 
 .history-overlay.open {
@@ -31,6 +32,7 @@
     transform: scale(0.9);
     transition: opacity 0.3s ease, transform 0.3s ease;
     overflow-x: hidden;
+    overscroll-behavior: contain;
 }
 
 .history-overlay.open .history-container {

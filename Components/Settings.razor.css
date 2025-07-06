@@ -12,6 +12,7 @@
     visibility: hidden;
     pointer-events: none;
     transition: all 0.3s ease;
+    overscroll-behavior: contain;
 }
 
 .settings-overlay.open {
@@ -32,6 +33,7 @@
     transform: scale(0.9);
     transition: opacity 0.3s ease, transform 0.3s ease;
     overflow-x: hidden;
+    overscroll-behavior: contain;
 }
 
 .settings-overlay.open .settings-container {
