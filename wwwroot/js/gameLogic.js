@@ -2,6 +2,62 @@
 (function() {
     'use strict';
 
+    // Storage keys for settings
+    const STORAGE_KEYS = {
+        FONT_PREFERENCE: 'kol_font_preference'
+    };
+
+    // Default settings
+    const DEFAULT_SETTINGS = {
+        font: 'Oxanium'
+    };
+
+    // Settings management
+    window.settingsManager = {
+        // Load settings from localStorage
+        loadSettings() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEYS.FONT_PREFERENCE);
+                return stored ? JSON.parse(stored) : DEFAULT_SETTINGS;
+            } catch (error) {
+                console.warn('Failed to load settings from localStorage:', error);
+                return DEFAULT_SETTINGS;
+            }
+        },
+
+        // Save settings to localStorage
+        saveSettings(settings) {
+            try {
+                localStorage.setItem(STORAGE_KEYS.FONT_PREFERENCE, JSON.stringify(settings));
+                console.log('Settings saved:', settings);
+            } catch (error) {
+                console.warn('Failed to save settings to localStorage:', error);
+            }
+        },
+
+        // Get current font preference
+        getFontPreference() {
+            const settings = this.loadSettings();
+            return settings.font || DEFAULT_SETTINGS.font;
+        },
+
+        // Set font preference
+        setFontPreference(fontName) {
+            const settings = this.loadSettings();
+            settings.font = fontName;
+            this.saveSettings(settings);
+        },
+
+        // Apply stored settings on app startup
+        applyStoredSettings() {
+            const fontPreference = this.getFontPreference();
+            if (window.changeFont) {
+                window.changeFont(fontPreference);
+            }
+            console.log('Applied stored font preference:', fontPreference);
+        }
+    };
+
     // Vibration functionality
     window.vibrate = function (duration) {
         if (navigator.vibrate) {
@@ -32,7 +88,16 @@
     }
 
     // Setup fullscreen on page load
-    document.addEventListener('DOMContentLoaded', setupFullscreen);
+    document.addEventListener('DOMContentLoaded', function() {
+        setupFullscreen();
+        
+        // Apply stored settings on app startup
+        if (window.settingsManager) {
+            window.settingsManager.applyStoredSettings();
+        } else {
+            console.warn('Settings manager not available');
+        }
+    });
 
     // Prevent context menu and long press selection
     document.addEventListener('contextmenu', function(e) {
@@ -129,6 +194,11 @@
     window.startLongPress = startLongPress;
     window.cancelLongPress = cancelLongPress;
 
+    // Expose settings functions globally
+    window.getFontPreference = function() {
+        return window.settingsManager ? window.settingsManager.getFontPreference() : 'Oxanium';
+    };
+
     // Font switching functionality
     window.changeFont = function(fontName) {
         const root = document.documentElement;
@@ -148,6 +218,12 @@
         }
         
         root.style.setProperty('--app-font-family', fontFamily);
+        
+        // Save the font preference to localStorage
+        if (window.settingsManager) {
+            window.settingsManager.setFontPreference(fontName);
+        }
+        
         console.log('Font changed to:', fontName);
     };
 

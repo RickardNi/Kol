@@ -1,4 +1,6 @@
 @using Microsoft.AspNetCore.Components
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
 
 <div class="settings-overlay @(IsOpen ? "open" : "")">
     <div class="settings-container">
@@ -64,6 +66,27 @@
     private readonly string[] availableFonts = { "Oxanium", "Rationale", "Anta" };
 
     public string CurrentFontName => currentFont == "Oxanium" ? "Oxanium (default)" : currentFont;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Load the current font preference from localStorage
+            try
+            {
+                var fontPreference = await JS.InvokeAsync<string>("getFontPreference");
+                if (!string.IsNullOrEmpty(fontPreference) && availableFonts.Contains(fontPreference))
+                {
+                    currentFont = fontPreference;
+                    StateHasChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to load font preference: {ex.Message}");
+            }
+        }
+    }
 
     private async Task CloseSettings()
     {

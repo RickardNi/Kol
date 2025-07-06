@@ -27,6 +27,7 @@ To get started, simply visit the demo and tap **_Install_** when prompted (or ad
 - **Smooth Animations**: Beautiful transitions and micro-interactions
 - **Dark Theme**: Easy on the eyes during long gaming sessions
 - **PWA Ready**: Install as a native app on mobile devices
+- **Persistent Settings**: Preferences are saved and restored between sessions
 
 ## FAQ
 
