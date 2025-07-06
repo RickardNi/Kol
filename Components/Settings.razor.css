@@ -103,7 +103,7 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 1rem 0 1rem;
 }
 
 .settings-section {
@@ -202,19 +202,14 @@
     line-height: 1.4;
 }
 
-/* Scrollbar styling */
+/* Hide scrollbar */
 .settings-content::-webkit-scrollbar {
-    width: 4px;
+    display: none;
 }
 
-.settings-content::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 2px;
-}
-
-.settings-content::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 2px;
+.settings-content {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .settings-content::-webkit-scrollbar-thumb:hover {
