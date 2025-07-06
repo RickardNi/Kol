@@ -183,6 +183,25 @@
     color: #007acc;
 }
 
+/* Tip section styling */
+.tip-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(0, 150, 255, 0.1);
+    border: 1px solid rgba(0, 150, 255, 0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+}
+
+.tip-text {
+    font-family: var(--app-font-family);
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.4;
+}
+
 /* Scrollbar styling */
 .settings-content::-webkit-scrollbar {
     width: 4px;

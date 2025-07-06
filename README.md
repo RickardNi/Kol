@@ -17,6 +17,7 @@ To get started, simply visit the demo and tap **_Install_** when prompted (or ad
 ### 🎮 Core Functionality
 - **Intuitive Controls**: Tap top half to increase life, bottom half to decrease
 - **Long Press Support**: Hold for ±10 life changes
+- **Die Rolling**: Long press the icon for d4, d6, d8, d10, d12 and d20
 - **Haptic Feedback**: Vibration feedback on mobile devices
 - **Sound Effects**: Audio feedback for life changes and reset actions
 - **Wake Lock**: Prevents screen sleep during gameplay
