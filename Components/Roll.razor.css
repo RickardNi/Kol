@@ -7,7 +7,7 @@
     height: 100dvh;
     height: calc(var(--vh) * 100);
     z-index: 1000;
-    background: #000000;
+    background: var(--background-black);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,14 +41,14 @@
 }
 
 .roll-player.top-player {
-    background: #000000;
+    background: var(--background-black);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     transform: rotate(180deg);
 }
 
 .roll-player.bottom-player {
-    background: #000000;
+    background: var(--background-black);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
