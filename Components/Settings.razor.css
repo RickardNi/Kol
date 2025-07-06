@@ -104,6 +104,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0 0.5rem 0 0.5rem;
+    overscroll-behavior: none;
 }
 
 .settings-section {

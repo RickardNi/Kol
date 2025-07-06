@@ -1059,6 +1059,7 @@ code {
     overflow-y: auto;
     overflow-x: hidden;
     justify-content: center;
+    overscroll-behavior: none;
 }
 
 .history-column {
