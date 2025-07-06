@@ -1,0 +1,195 @@
+/* ===== ADVANCED MENU ===== */
+.advanced-menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    height: calc(var(--vh) * 100);
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.advanced-menu-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+}
+
+.advanced-menu-container.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.advanced-menu-container.open::before {
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.advanced-menu-container.open .popup-quadrant {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.advanced-menu-container.open .popup-quadrant.top-left {
+    transition-delay: 0.1s;
+}
+
+.advanced-menu-container.open .popup-quadrant.top-right {
+    transition-delay: 0.15s;
+}
+
+.advanced-menu-container.open .popup-quadrant.bottom-left {
+    transition-delay: 0.2s;
+}
+
+.advanced-menu-container.open .popup-quadrant.bottom-right {
+    transition-delay: 0.25s;
+}
+
+.advanced-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 20px;
+    background: var(--button-background);
+    border: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.advanced-control:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.advanced-btn {
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.advanced-btn:active {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(0.95);
+}
+
+.advanced-btn:focus,
+.advanced-btn:focus-visible,
+.advanced-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.advanced-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.advanced-btn svg {
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--neutral-white);
+}
+
+.advanced-label {
+    font-family: var(--app-font-family);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--neutral-white);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.advanced-close-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    z-index: 10;
+    animation: closeBtnAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+.advanced-close-btn:active {
+    background: transparent;
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+.advanced-close-btn:focus,
+.advanced-close-btn:focus-visible,
+.advanced-close-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.advanced-close-btn:hover {
+    background: transparent;
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.advanced-close-btn svg {
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--neutral-white);
+} 

@@ -13,6 +13,7 @@
     private bool isQuickMenuOpen = false;
     private bool isRollMode = false;
     private bool isSettingsOpen = false;
+    private bool isAdvancedOpen = false;
     private int topPlayerRoll = 0;
     private int bottomPlayerRoll = 0;
 }
@@ -158,6 +159,9 @@
 @* Settings Overlay *@
 <Settings IsOpen="isSettingsOpen" IsOpenChanged="HandleSettingsOpenChanged" BuildNumber="@buildNumber" FontChanged="HandleFontChanged" StartLifeChanged="HandleStartLifeChanged" @key="buildNumber" />
 
+@* Advanced Overlay *@
+<Advanced IsOpen="isAdvancedOpen" IsOpenChanged="HandleAdvancedOpenChanged" />
+
 <div class="quick-menu-container @(isQuickMenuOpen ? "open" : "")">
     <div class="popup-grid">
         <div class="popup-quadrant top-left">
@@ -215,7 +219,12 @@
 </div>
 
 <div class="toggle-btn-container">
-    <button class="toggle-btn @(isQuickMenuOpen ? "close" : "quick-menu")" @onclick="ToggleQuickMenu" aria-label="@(isQuickMenuOpen ? "Close quick menu" : "Open quick menu")">
+    <button class="toggle-btn @(isQuickMenuOpen ? "close" : "quick-menu")" 
+            @onclick="ToggleQuickMenu" 
+            @onpointerdown="() => HandleToggleButtonPointerDown()"
+            @onpointerup="() => HandleToggleButtonPointerUp()"
+            @onpointerleave="() => HandleToggleButtonPointerLeave()"
+            aria-label="@(isQuickMenuOpen ? "Close quick menu" : "Open quick menu")">
         <svg class="quick-menu-icon lucide lucide-bolt-icon lucide-bolt" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
             <circle cx="12" cy="12" r="4"/>
@@ -266,8 +275,36 @@
 
     private void ToggleQuickMenu()
     {
+        // Don't toggle quick menu if advanced menu was opened via long press
+        if (isAdvancedLongPress)
+        {
+            isAdvancedLongPress = false;
+            return;
+        }
+        
         isQuickMenuOpen = !isQuickMenuOpen;
         StateHasChanged();
+    }
+
+    private bool isAdvancedLongPress = false;
+
+    private async void HandleToggleButtonPointerDown()
+    {
+        isAdvancedLongPress = false;
+        // Start long press timer for advanced menu
+        await JS.InvokeVoidAsync("startLongPress", DotNetObjectReference.Create(this), "advanced");
+    }
+
+    private async void HandleToggleButtonPointerUp()
+    {
+        // Cancel long press timer
+        await JS.InvokeVoidAsync("cancelLongPress");
+    }
+
+    private async void HandleToggleButtonPointerLeave()
+    {
+        // Cancel long press timer
+        await JS.InvokeVoidAsync("cancelLongPress");
     }
 
     private async void HandlePointerDown(bool isTopPlayer, bool isTop, bool pressed)
@@ -320,6 +357,15 @@
         bool isTop = topPlayerTopPressed || bottomPlayerTopPressed;
         
         LongPressHealth(isTopPlayer, isIncrease);
+    }
+
+    [JSInvokable]
+    public void OnLongPressAdvanced()
+    {
+        // Open advanced menu on long press of toggle button
+        isAdvancedLongPress = true;
+        isAdvancedOpen = true;
+        StateHasChanged();
     }
 
     private async void SetPressed(bool isTopPlayer, bool isTop, bool pressed)
@@ -526,6 +572,12 @@
     private void HandleSettingsOpenChanged(bool isOpen)
     {
         isSettingsOpen = isOpen;
+        StateHasChanged();
+    }
+
+    private void HandleAdvancedOpenChanged(bool isOpen)
+    {
+        isAdvancedOpen = isOpen;
         StateHasChanged();
     }
 

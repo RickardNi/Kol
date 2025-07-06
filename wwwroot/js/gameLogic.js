@@ -191,11 +191,24 @@
     // Long press detection
     let longPressTimer = null;
     let longPressDelay = 500; // 500ms for long press
+    let longPressType = null;
 
-    function startLongPress(dotNetRef, isIncrease) {
-        longPressTimer = setTimeout(() => {
-            dotNetRef.invokeMethodAsync('OnLongPress', isIncrease);
-        }, longPressDelay);
+    function startLongPress(dotNetRef, type) {
+        cancelLongPress();
+        longPressType = type;
+        
+        // Handle different types of long press
+        if (type === true || type === false) {
+            // Health change long press
+            longPressTimer = setTimeout(() => {
+                dotNetRef.invokeMethodAsync('OnLongPress', type);
+            }, longPressDelay);
+        } else if (type === 'advanced') {
+            // Advanced menu long press
+            longPressTimer = setTimeout(() => {
+                dotNetRef.invokeMethodAsync('OnLongPressAdvanced');
+            }, 800); // Slightly longer for advanced menu
+        }
     }
 
     function cancelLongPress() {
