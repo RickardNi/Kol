@@ -9,17 +9,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Kol" />
     <meta name="theme-color" content="#000000" />
-    <meta name="msapplication-navbutton-color" content="#000000" />
-    <meta name="apple-touch-fullscreen" content="yes" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <!-- Additional meta tags for better fullscreen support -->
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#000000" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="msapplication-navbutton-color" content="#000000" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
     <title>Kol</title>
     <base href="/" />
     <link rel="stylesheet" href="css/app.css" />
@@ -39,6 +34,7 @@
         <a href="." class="reload">Reload</a>
         <span class="dismiss">🗙</span>
     </div>
+    
     <script src="_framework/blazor.webassembly.js"></script>
     <script src="js/fullscreen.js"></script>
     <script src="js/wakeLock.js"></script>
@@ -51,12 +47,24 @@
         return buildNumber.startsWith('${') ? 'dev' : buildNumber;
       };
 
+      // PWA Install prompt handling
+      let deferredPrompt;
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later
+        deferredPrompt = e;
+        console.log('beforeinstallprompt event fired - app is installable');
+      });
+
       // Service worker registration with update detection
       if ('serviceWorker' in navigator) {
         // Only register service worker in production
         if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
           window.addEventListener('load', () => {
-              navigator.serviceWorker.register('/service-worker.js')
+              // Use the Blazor PWA service worker
+              navigator.serviceWorker.register('/service-worker.published.js')
                   .then(registration => {
                       console.log('Service Worker registered successfully');
                       
@@ -108,6 +116,8 @@
                   }
                   deferredPrompt = null;
               });
+          } else {
+              console.log('Install prompt not available');
           }
       };
 
