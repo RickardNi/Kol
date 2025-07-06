@@ -8,35 +8,18 @@
     height: 100dvh;
     height: calc(var(--vh) * 100);
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.8);
+    background: #000000;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.advanced-menu-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
-    pointer-events: none;
 }
 
 .advanced-menu-container.open {
     opacity: 1;
     visibility: visible;
-}
-
-.advanced-menu-container.open::before {
-    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Override shared grid styles for advanced menu - 2x4 layout */

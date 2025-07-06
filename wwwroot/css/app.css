@@ -337,8 +337,8 @@ html, body {
     background: transparent;
     border: none;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -633,7 +633,7 @@ code {
 
 .reset-label {
     font-family: var(--app-font-family);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--neutral-white);
     text-align: center;
@@ -655,8 +655,8 @@ code {
     background: transparent;
     border: none;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -693,7 +693,7 @@ code {
 
 .history-label {
     font-family: var(--app-font-family);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--neutral-white);
     text-align: center;
@@ -715,8 +715,8 @@ code {
     background: transparent;
     border: none;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -753,7 +753,7 @@ code {
 
 .dice-label {
     font-family: var(--app-font-family);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--neutral-white);
     text-align: center;
@@ -775,8 +775,8 @@ code {
     background: transparent;
     border: none;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -813,7 +813,7 @@ code {
 
 .settings-control-label {
     font-family: var(--app-font-family);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--neutral-white);
     text-align: center;
