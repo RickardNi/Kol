@@ -128,6 +128,28 @@
               historyScrollable.scrollTop = historyScrollable.scrollHeight;
           }
       };
+
+      // Add this to your existing script section
+      let hasInteracted = false;
+
+      function triggerAutoInstall() {
+          if (deferredPrompt && !hasInteracted) {
+              hasInteracted = true;
+              // Small delay to feel natural
+              setTimeout(() => {
+                  deferredPrompt.prompt();
+                  deferredPrompt.userChoice.then((choiceResult) => {
+                      console.log('Auto-install prompt result:', choiceResult.outcome);
+                      deferredPrompt = null;
+                  });
+              }, 1000);
+          }
+      }
+
+      // Trigger after any user interaction
+      ['click', 'scroll', 'touchstart', 'keydown'].forEach(eventType => {
+          document.addEventListener(eventType, triggerAutoInstall, { once: true });
+      });
     </script>
 </body>
 
