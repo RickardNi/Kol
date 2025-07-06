@@ -6,10 +6,10 @@
     <div class="popup-grid">
         <div class="popup-section top-left">
             <div class="advanced-control">
-                <button class="advanced-btn @(d4IsRolling ? "rolling" : "")" @onclick="RollD4" aria-label="D4 die">
-                    @if (d4HasResult)
+                <button class="advanced-btn @(diceStates["d4"].IsRolling ? "rolling" : "")" @onclick="@(() => RollDice("d4"))" aria-label="D4 die">
+                    @if (diceStates["d4"].HasResult)
                     {
-                        <div class="dice-result">@d4Result</div>
+                        <div class="dice-result">@diceStates["d4"].Result</div>
                     }
                     else
                     {
@@ -24,69 +24,104 @@
         </div>
         <div class="popup-section top-right">
             <div class="advanced-control">
-                <button class="advanced-btn" aria-label="D6 die">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box-icon lucide-box">
-                        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
-                        <path d="m3.3 7 8.7 5 8.7-5"/>
-                        <path d="M12 22V12"/>
-                    </svg>
+                <button class="advanced-btn @(diceStates["d6"].IsRolling ? "rolling" : "")" @onclick="@(() => RollDice("d6"))" aria-label="D6 die">
+                    @if (diceStates["d6"].HasResult)
+                    {
+                        <div class="dice-result">@diceStates["d6"].Result</div>
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box-icon lucide-box">
+                            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                            <path d="m3.3 7 8.7 5 8.7-5"/>
+                            <path d="M12 22V12"/>
+                        </svg>
+                    }
                 </button>
                 <span class="advanced-label">d6</span>
             </div>
         </div>
         <div class="popup-section top-middle-left">
             <div class="advanced-control">
-                <button class="advanced-btn" aria-label="Advanced feature 3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-x-icon lucide-square-x">
-                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
-                        <path d="M4 4l16 16"/>
-                        <path d="M20 4l-16 16"/>
-                    </svg>
+                <button class="advanced-btn @(diceStates["d8"].IsRolling ? "rolling" : "")" @onclick="@(() => RollDice("d8"))" aria-label="D8 die">
+                    @if (diceStates["d8"].HasResult)
+                    {
+                        <div class="dice-result">@diceStates["d8"].Result</div>
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-x-icon lucide-square-x">
+                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                            <path d="M4 4l16 16"/>
+                            <path d="M20 4l-16 16"/>
+                        </svg>
+                    }
                 </button>
                 <span class="advanced-label">d8</span>
             </div>
         </div>
         <div class="popup-section top-middle-right">
             <div class="advanced-control">
-                <button class="advanced-btn" aria-label="D10 die">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dices-icon lucide-dices">
-                        <rect width="12" height="12" x="2" y="10" rx="2" ry="2"/>
-                        <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/>
-                        <path d="M6 18h.01"/>
-                        <path d="M10 14h.01"/>
-                        <path d="M15 6h.01"/>
-                        <path d="M18 9h.01"/>
-                    </svg>
+                <button class="advanced-btn @(diceStates["d10"].IsRolling ? "rolling" : "")" @onclick="@(() => RollDice("d10"))" aria-label="D10 die">
+                    @if (diceStates["d10"].HasResult)
+                    {
+                        <div class="dice-result">@diceStates["d10"].Result</div>
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dices-icon lucide-dices">
+                            <rect width="12" height="12" x="2" y="10" rx="2" ry="2"/>
+                            <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/>
+                            <path d="M6 18h.01"/>
+                            <path d="M10 14h.01"/>
+                            <path d="M15 6h.01"/>
+                            <path d="M18 9h.01"/>
+                        </svg>
+                    }
                 </button>
                 <span class="advanced-label">d10</span>
             </div>
         </div>
         <div class="popup-section bottom-middle-left">
             <div class="advanced-control">
-                <button class="advanced-btn" aria-label="D12 die">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dices-icon lucide-dices">
-                        <rect width="12" height="12" x="2" y="10" rx="2" ry="2"/>
-                        <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/>
-                        <path d="M6 18h.01"/>
-                        <path d="M10 14h.01"/>
-                        <path d="M15 6h.01"/>
-                        <path d="M18 9h.01"/>
-                    </svg>
+                <button class="advanced-btn @(diceStates["d12"].IsRolling ? "rolling" : "")" @onclick="@(() => RollDice("d12"))" aria-label="D12 die">
+                    @if (diceStates["d12"].HasResult)
+                    {
+                        <div class="dice-result">@diceStates["d12"].Result</div>
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dices-icon lucide-dices">
+                            <rect width="12" height="12" x="2" y="10" rx="2" ry="2"/>
+                            <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/>
+                            <path d="M6 18h.01"/>
+                            <path d="M10 14h.01"/>
+                            <path d="M15 6h.01"/>
+                            <path d="M18 9h.01"/>
+                        </svg>
+                    }
                 </button>
                 <span class="advanced-label">d12</span>
             </div>
         </div>
         <div class="popup-section bottom-middle-right">
             <div class="advanced-control">
-                <button class="advanced-btn" aria-label="D20 die">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dices-icon lucide-dices">
-                        <rect width="12" height="12" x="2" y="10" rx="2" ry="2"/>
-                        <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/>
-                        <path d="M6 18h.01"/>
-                        <path d="M10 14h.01"/>
-                        <path d="M15 6h.01"/>
-                        <path d="M18 9h.01"/>
-                    </svg>
+                <button class="advanced-btn @(diceStates["d20"].IsRolling ? "rolling" : "")" @onclick="@(() => RollDice("d20"))" aria-label="D20 die">
+                    @if (diceStates["d20"].HasResult)
+                    {
+                        <div class="dice-result">@diceStates["d20"].Result</div>
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dices-icon lucide-dices">
+                            <rect width="12" height="12" x="2" y="10" rx="2" ry="2"/>
+                            <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/>
+                            <path d="M6 18h.01"/>
+                            <path d="M10 14h.01"/>
+                            <path d="M15 6h.01"/>
+                            <path d="M18 9h.01"/>
+                        </svg>
+                    }
                 </button>
                 <span class="advanced-label">d20</span>
             </div>
@@ -133,28 +168,56 @@
     [Parameter] public bool IsOpen { get; set; }
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
 
-    private bool d4IsRolling = false;
-    private bool d4HasResult = false;
-    private int d4Result = 0;
+    private Dictionary<string, DiceState> diceStates = new Dictionary<string, DiceState>
+    {
+        { "d4", new DiceState { MaxValue = 4 } },
+        { "d6", new DiceState { MaxValue = 6 } },
+        { "d8", new DiceState { MaxValue = 8 } },
+        { "d10", new DiceState { MaxValue = 10 } },
+        { "d12", new DiceState { MaxValue = 12 } },
+        { "d20", new DiceState { MaxValue = 20 } }
+    };
+
+    private class DiceState
+    {
+        public bool IsRolling { get; set; } = false;
+        public bool HasResult { get; set; } = false;
+        public int Result { get; set; } = 0;
+        public int MaxValue { get; set; }
+    }
 
     private async Task CloseAdvanced()
     {
         IsOpen = false;
         await IsOpenChanged.InvokeAsync(false);
+        ResetAllDice();
     }
 
-    private async Task RollD4()
+    private void ResetAllDice()
     {
-        d4IsRolling = true;
-        d4HasResult = false; // Hide result during roll
+        // Reset all dice states
+        foreach (var diceState in diceStates.Values)
+        {
+            diceState.IsRolling = false;
+            diceState.HasResult = false;
+            diceState.Result = 0;
+        }
+    }
+
+    private async Task RollDice(string diceType)
+    {
+        var diceState = diceStates[diceType];
+        diceState.IsRolling = true;
+        diceState.HasResult = false; // Hide result during roll
+        
         // Generate the roll result
-        d4Result = new Random().Next(1, 5);
+        diceState.Result = new Random().Next(1, diceState.MaxValue + 1);
         
         // Play roll sound effect
         await JS.InvokeVoidAsync("playRollSound");
         
         await Task.Delay(300); // Wait for the animation to complete
-        d4IsRolling = false;
-        d4HasResult = true; // Show result after animation
+        diceState.IsRolling = false;
+        diceState.HasResult = true; // Show result after animation
     }
 } 
