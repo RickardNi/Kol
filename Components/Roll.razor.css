@@ -54,7 +54,7 @@
 }
 
 .roll-player.winner {
-    animation: winnerPulse 0.8s ease-in-out infinite 0.5s;
+    animation: winnerPulse 0.8s ease-in-out infinite 0.3s;
 }
 
 @keyframes winnerPulse {
@@ -68,9 +68,11 @@
 
 .roll-player.top-player.winner {
     background: transparent;
-    animation: winnerPulse 0.8s ease-in-out infinite 0.5s;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    animation: winnerPulse 0.8s ease-in-out infinite 0.3s;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     /* Add cutout for roll close button at top edge (towards center) - adjusted for rotation */
     -webkit-mask: radial-gradient(circle 30px at 50% 0%, transparent 30px, black 30px);
     mask: radial-gradient(circle 30px at 50% 0%, transparent 30px, black 30px);
@@ -78,7 +80,7 @@
 
 .roll-player.bottom-player.winner {
     background: transparent;
-    animation: winnerPulse 0.8s ease-in-out infinite 0.5s;
+    animation: winnerPulse 0.8s ease-in-out infinite 0.3s;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     /* Add cutout for roll close button at top edge (towards center) */
