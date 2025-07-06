@@ -93,7 +93,6 @@
 
 .settings-close-btn svg {
     display: block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .settings-content {

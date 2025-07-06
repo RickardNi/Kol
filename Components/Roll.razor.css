@@ -160,7 +160,6 @@
 
 .roll-close-btn:active {
     background: transparent;
-    transform: translate(-50%, -50%) scale(0.95);
 }
 
 .roll-close-btn:focus,
@@ -173,12 +172,10 @@
 
 .roll-close-btn:hover {
     background: transparent;
-    transform: translate(-50%, -50%) scale(1.05);
 }
 
 .roll-close-btn svg {
     display: block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: absolute;
     top: 50%;

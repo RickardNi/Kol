@@ -187,13 +187,15 @@
     }
 }
 
-/* ===== ADVANCED SVG SHARED STYLES ===== */
-.advanced-btn svg,
-.advanced-close-btn svg {
+.advanced-btn svg {
     display: block;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     color: var(--neutral-white);
+}
+
+.advanced-close-btn svg {
+    display: block;
 }
 
 .advanced-label {
@@ -208,7 +210,6 @@
     -ms-user-select: none;
 }
 
-/* ===== ADVANCED CLOSE BUTTON SPECIFIC STYLES ===== */
 .advanced-close-btn {
     position: absolute;
     top: 50%;
