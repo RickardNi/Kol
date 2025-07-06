@@ -548,6 +548,8 @@
     private void OpenHistory()
     {
         isHistoryOpen = true;
+        // Close the quick menu when history is opened
+        isQuickMenuOpen = false;
         StateHasChanged();
         
         // Scroll to bottom after the DOM has updated
@@ -572,6 +574,11 @@
     private void HandleSettingsOpenChanged(bool isOpen)
     {
         isSettingsOpen = isOpen;
+        // Close the quick menu when settings are closed
+        if (!isOpen)
+        {
+            isQuickMenuOpen = false;
+        }
         StateHasChanged();
     }
 
