@@ -1,0 +1,95 @@
+@using Microsoft.JSInterop
+@using Kol.Models
+@inject IJSRuntime JS
+
+<div class="history-overlay @(IsOpen ? "open" : "")">
+    <div class="history-container">
+        <div class="history-header">
+            <button class="history-close-btn" @onclick="OnCloseClick" aria-label="Close history">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x-icon lucide-circle-x">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="m15 9-6 6"/>
+                    <path d="m9 9 6 6"/>
+                </svg>
+            </button>
+        </div>
+        <div class="history-content">
+            <div class="history-start-row">
+                <div class="history-start left-start">@StartHealth</div>
+                <div class="history-start right-start">@StartHealth</div>
+            </div>
+            <div class="history-scrollable">
+                <div class="history-column left-column">
+                    <div class="history-entries">
+                        @{
+                            var recentHistory = HealthHistory.Take(20).ToList();
+                            if (recentHistory.Count > 0)
+                            {
+                                foreach (var change in recentHistory)
+                                {
+                                    if (!change.IsTopPlayer)
+                                    {
+                                        <div class="history-entry change @(change.ChangeAmount > 0 ? "positive" : "negative")">
+                                            <span class="change-amount">@(change.ChangeAmount > 0 ? "+" : "")@change.ChangeAmount</span>
+                                            <span class="new-health">@change.NewHealth</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="history-entry empty">
+                                            <span class="change-amount">&nbsp;</span>
+                                            <span class="new-health">&nbsp;</span>
+                                        </div>
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="history-column right-column">
+                    <div class="history-entries">
+                        @{
+                            if (recentHistory.Count > 0)
+                            {
+                                foreach (var change in recentHistory)
+                                {
+                                    if (change.IsTopPlayer)
+                                    {
+                                        <div class="history-entry change @(change.ChangeAmount > 0 ? "positive" : "negative")">
+                                            <span class="change-amount">@(change.ChangeAmount > 0 ? "+" : "")@change.ChangeAmount</span>
+                                            <span class="new-health">@change.NewHealth</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="history-entry empty">
+                                            <span class="change-amount">&nbsp;</span>
+                                            <span class="new-health">&nbsp;</span>
+                                        </div>
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnCloseClick { get; set; }
+    [Parameter] public int StartHealth { get; set; }
+    [Parameter] public List<HealthChange> HealthHistory { get; set; } = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (IsOpen)
+        {
+            // Scroll to bottom after the DOM has updated
+            await Task.Delay(100);
+            await JS.InvokeVoidAsync("scrollHistoryToBottom");
+        }
+    }
+} 
