@@ -1,0 +1,285 @@
+/* ===== QUICK MENU CONTAINER ===== */
+.quick-menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    /* No background color, but glass effect for overlay */
+    background: none;
+    backdrop-filter: blur(0px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.95);
+}
+
+.quick-menu-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: rgba(0,0,0,0.25);
+    /* Glass effect */
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quick-menu-container.open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.quick-menu-container.open::before {
+    opacity: 1;
+}
+
+/* ===== POPUP GRID ===== */
+.popup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.popup-quadrant {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quick-menu-container.open .popup-quadrant {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.quick-menu-container.open .popup-quadrant.top-left {
+    transition-delay: 0.1s;
+}
+
+.quick-menu-container.open .popup-quadrant.top-right {
+    transition-delay: 0.15s;
+}
+
+.quick-menu-container.open .popup-quadrant.bottom-left {
+    transition-delay: 0.2s;
+}
+
+.quick-menu-container.open .popup-quadrant.bottom-right {
+    transition-delay: 0.25s;
+}
+
+.popup-quadrant.top-left {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.popup-quadrant.top-right {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.popup-quadrant.bottom-left {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.popup-quadrant.bottom-right {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* ===== TOGGLE BUTTON ===== */
+.toggle-btn-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-btn {
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    pointer-events: auto;
+}
+
+.toggle-btn:active {
+    background: transparent;
+    transform: scale(0.95);
+}
+
+.toggle-btn:focus,
+.toggle-btn:focus-visible,
+.toggle-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.toggle-btn:hover {
+    background: transparent;
+}
+
+.toggle-btn svg {
+    display: block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--neutral-white);
+}
+
+.toggle-btn .quick-menu-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.toggle-btn .close-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.toggle-btn.close .quick-menu-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.toggle-btn.close .close-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.toggle-btn.close {
+    background: transparent;
+}
+
+/* ===== QUICK MENU BUTTONS ===== */
+.reset-control,
+.history-control,
+.dice-control,
+.settings-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.reset-btn,
+.history-btn,
+.dice-btn,
+.settings-control-btn {
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: none;
+    color: var(--neutral-white);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.reset-btn:active,
+.history-btn:active,
+.dice-btn:active,
+.settings-control-btn:active {
+    background: transparent;
+}
+
+.reset-btn:focus,
+.reset-btn:focus-visible,
+.reset-btn:focus-within,
+.history-btn:focus,
+.history-btn:focus-visible,
+.history-btn:focus-within,
+.dice-btn:focus,
+.dice-btn:focus-visible,
+.dice-btn:focus-within,
+.settings-control-btn:focus,
+.settings-control-btn:focus-visible,
+.settings-control-btn:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.reset-btn:hover,
+.history-btn:hover,
+.dice-btn:hover,
+.settings-control-btn:hover {
+    background: transparent;
+}
+
+.reset-btn svg,
+.history-btn svg,
+.dice-btn svg,
+.settings-control-btn svg {
+    display: block;
+}
+
+.reset-label,
+.history-label,
+.dice-label,
+.settings-control-label {
+    font-family: var(--app-font-family);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-white);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+} 
