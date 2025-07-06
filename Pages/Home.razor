@@ -587,11 +587,12 @@
         StateHasChanged();
     }
 
-    private async Task HandleStartLifeChanged(int newStartLife)
+    private Task HandleStartLifeChanged(int newStartLife)
     {
         // Update the start health for new games
         StartHealth = newStartLife;
         StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private void RecordHealthChange(bool isTopPlayer, int changeAmount, int newHealth)
