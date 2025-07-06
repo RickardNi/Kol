@@ -39,25 +39,64 @@
     animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.advanced-menu-container.open .popup-quadrant {
+/* Override shared grid styles for advanced menu - 2x4 layout */
+.advanced-menu-container .popup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.advanced-menu-container .popup-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.advanced-menu-container.open .popup-section {
     opacity: 1;
     transform: scale(1) translateY(0);
 }
 
-.advanced-menu-container.open .popup-quadrant.top-left {
+/* Staggered animation delays for 8 sections */
+.advanced-menu-container.open .popup-section.top-left {
     transition-delay: 0.1s;
 }
 
-.advanced-menu-container.open .popup-quadrant.top-right {
+.advanced-menu-container.open .popup-section.top-right {
     transition-delay: 0.15s;
 }
 
-.advanced-menu-container.open .popup-quadrant.bottom-left {
+.advanced-menu-container.open .popup-section.top-middle-left {
     transition-delay: 0.2s;
 }
 
-.advanced-menu-container.open .popup-quadrant.bottom-right {
+.advanced-menu-container.open .popup-section.top-middle-right {
     transition-delay: 0.25s;
+}
+
+.advanced-menu-container.open .popup-section.bottom-middle-left {
+    transition-delay: 0.3s;
+}
+
+.advanced-menu-container.open .popup-section.bottom-middle-right {
+    transition-delay: 0.35s;
+}
+
+.advanced-menu-container.open .popup-section.bottom-left {
+    transition-delay: 0.4s;
+}
+
+.advanced-menu-container.open .popup-section.bottom-right {
+    transition-delay: 0.45s;
 }
 
 .advanced-control {
@@ -77,8 +116,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
 }
-
-
 
 .advanced-btn {
     background: transparent;
@@ -111,8 +148,6 @@
     box-shadow: none !important;
     background: transparent !important;
 }
-
-
 
 .advanced-btn svg {
     display: block;
@@ -170,8 +205,6 @@
     box-shadow: none !important;
     background: transparent !important;
 }
-
-
 
 .advanced-close-btn svg {
     display: block;
