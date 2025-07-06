@@ -173,11 +173,14 @@
     font-weight: 400;
     color: #0096ff;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     border-radius: 8px;
-    min-width: 80px;
-    text-align: right;
+    min-width: 40px;
+    text-align: center;
     transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .github-link:hover {
@@ -186,6 +189,11 @@
 
 .github-link:active {
     color: #007acc;
+}
+
+.github-link svg {
+    width: 20px;
+    height: 20px;
 }
 
 /* Tip section styling */
