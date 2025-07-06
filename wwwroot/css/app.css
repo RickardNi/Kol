@@ -623,146 +623,12 @@ code {
     background: transparent;
 }
 
-.reset-control {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
 
-.reset-label {
-    font-family: var(--app-font-family);
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--neutral-white);
-    text-align: center;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
 
-.history-control {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.history-btn {
-    background: transparent;
-    border: none;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s, box-shadow 0.2s;
-    box-shadow: none;
-    color: var(--neutral-white);
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.history-btn:active {
-    background: transparent;
-}
-
-.history-btn:focus,
-.history-btn:focus-visible,
-.history-btn:focus-within {
-    outline: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-}
-
-.history-btn:hover {
-    background: transparent;
-}
-
-.history-btn svg {
-    display: block;
-}
-
-.history-label {
-    font-family: var(--app-font-family);
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--neutral-white);
-    text-align: center;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
-
-.dice-control {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.dice-btn {
-    background: transparent;
-    border: none;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s, box-shadow 0.2s;
-    box-shadow: none;
-    color: var(--neutral-white);
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.dice-btn:active {
-    background: transparent;
-}
-
-.dice-btn:focus,
-.dice-btn:focus-visible,
-.dice-btn:focus-within {
-    outline: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-}
-
-.dice-btn:hover {
-    background: transparent;
-}
-
-.dice-btn svg {
-    display: block;
-}
-
-.dice-label {
-    font-family: var(--app-font-family);
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--neutral-white);
-    text-align: center;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
-
+/* ===== QUICK MENU SPECIFIC STYLES ===== */
+.reset-control,
+.history-control,
+.dice-control,
 .settings-control {
     display: flex;
     flex-direction: column;
@@ -771,6 +637,9 @@ code {
     gap: 0.5rem;
 }
 
+.reset-btn,
+.history-btn,
+.dice-btn,
 .settings-control-btn {
     background: transparent;
     border: none;
@@ -791,10 +660,22 @@ code {
     user-select: none;
 }
 
+.reset-btn:active,
+.history-btn:active,
+.dice-btn:active,
 .settings-control-btn:active {
     background: transparent;
 }
 
+.reset-btn:focus,
+.reset-btn:focus-visible,
+.reset-btn:focus-within,
+.history-btn:focus,
+.history-btn:focus-visible,
+.history-btn:focus-within,
+.dice-btn:focus,
+.dice-btn:focus-visible,
+.dice-btn:focus-within,
 .settings-control-btn:focus,
 .settings-control-btn:focus-visible,
 .settings-control-btn:focus-within {
@@ -803,14 +684,23 @@ code {
     background: transparent !important;
 }
 
+.reset-btn:hover,
+.history-btn:hover,
+.dice-btn:hover,
 .settings-control-btn:hover {
     background: transparent;
 }
 
+.reset-btn svg,
+.history-btn svg,
+.dice-btn svg,
 .settings-control-btn svg {
     display: block;
 }
 
+.reset-label,
+.history-label,
+.dice-label,
 .settings-control-label {
     font-family: var(--app-font-family);
     font-size: 1.5rem;

@@ -50,37 +50,14 @@
 }
 
 /* Staggered animation delays for 8 sections */
-.advanced-menu-container.open .popup-section.top-left {
-    transition-delay: 0.1s;
-}
-
-.advanced-menu-container.open .popup-section.top-right {
-    transition-delay: 0.15s;
-}
-
-.advanced-menu-container.open .popup-section.top-middle-left {
-    transition-delay: 0.2s;
-}
-
-.advanced-menu-container.open .popup-section.top-middle-right {
-    transition-delay: 0.25s;
-}
-
-.advanced-menu-container.open .popup-section.bottom-middle-left {
-    transition-delay: 0.3s;
-}
-
-.advanced-menu-container.open .popup-section.bottom-middle-right {
-    transition-delay: 0.35s;
-}
-
-.advanced-menu-container.open .popup-section.bottom-left {
-    transition-delay: 0.4s;
-}
-
-.advanced-menu-container.open .popup-section.bottom-right {
-    transition-delay: 0.45s;
-}
+.advanced-menu-container.open .popup-section.top-left { transition-delay: 0.1s; }
+.advanced-menu-container.open .popup-section.top-right { transition-delay: 0.15s; }
+.advanced-menu-container.open .popup-section.top-middle-left { transition-delay: 0.2s; }
+.advanced-menu-container.open .popup-section.top-middle-right { transition-delay: 0.25s; }
+.advanced-menu-container.open .popup-section.bottom-middle-left { transition-delay: 0.3s; }
+.advanced-menu-container.open .popup-section.bottom-middle-right { transition-delay: 0.35s; }
+.advanced-menu-container.open .popup-section.bottom-left { transition-delay: 0.4s; }
+.advanced-menu-container.open .popup-section.bottom-right { transition-delay: 0.45s; }
 
 .advanced-control {
     display: flex;
@@ -100,12 +77,12 @@
     -ms-user-select: none;
 }
 
-.advanced-btn {
+/* ===== ADVANCED BUTTON SHARED STYLES ===== */
+.advanced-btn,
+.advanced-close-btn {
     background: transparent;
     border: none;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -119,17 +96,27 @@
     user-select: none;
 }
 
-.advanced-btn:active {
+.advanced-btn:active,
+.advanced-close-btn:active {
     background: rgba(255, 255, 255, 0.1);
     transform: scale(0.95);
 }
 
 .advanced-btn:focus,
 .advanced-btn:focus-visible,
-.advanced-btn:focus-within {
+.advanced-btn:focus-within,
+.advanced-close-btn:focus,
+.advanced-close-btn:focus-visible,
+.advanced-close-btn:focus-within {
     outline: none !important;
     box-shadow: none !important;
     background: transparent !important;
+}
+
+/* ===== ADVANCED BUTTON SPECIFIC STYLES ===== */
+.advanced-btn {
+    width: 120px;
+    height: 120px;
 }
 
 /* Dice rolling animation */
@@ -201,7 +188,9 @@
     }
 }
 
-.advanced-btn svg {
+/* ===== ADVANCED SVG SHARED STYLES ===== */
+.advanced-btn svg,
+.advanced-close-btn svg {
     display: block;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -220,51 +209,25 @@
     -ms-user-select: none;
 }
 
+/* ===== ADVANCED CLOSE BUTTON SPECIFIC STYLES ===== */
 .advanced-close-btn {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: transparent;
-    border: none;
-    border-radius: 50%;
     width: 80px;
     height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: var(--neutral-white);
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
     z-index: 10;
     animation: closeBtnAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
 }
 
 .advanced-close-btn:active {
-    background: transparent;
     transform: translate(-50%, -50%) scale(0.95);
 }
 
-.advanced-close-btn:focus,
-.advanced-close-btn:focus-visible,
-.advanced-close-btn:focus-within {
-    outline: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-}
-
 .advanced-close-btn svg {
-    display: block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: var(--neutral-white);
 } 
