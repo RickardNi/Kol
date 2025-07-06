@@ -823,47 +823,7 @@ code {
     -ms-user-select: none;
 }
 
-.build-number {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--app-font-family);
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-    text-align: center;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    opacity: 0;
-}
 
-.quick-menu-container.open .build-number {
-    opacity: 1;
-}
-
-.build-number-close {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, calc(-50% + 50px));
-    font-family: var(--app-font-family);
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-    text-align: center;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    opacity: 0;
-}
-
-.quick-menu-container.open .build-number-close {
-    opacity: 1;
-}
 
 /* ===== ROLL OVERLAY ===== */
 .roll-overlay {
