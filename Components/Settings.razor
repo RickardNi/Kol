@@ -16,6 +16,16 @@
         
         <div class="settings-content">
             <div class="settings-section">
+                <h3>Game</h3>
+                <div class="setting-item clickable" @onclick="CycleStartLife">
+                    <label>Starting Life</label>
+                    <div class="setting-control">
+                        <span class="placeholder">@StartLife</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="settings-section">
                 <h3>Appearance</h3>
                 <div class="setting-item">
                     <label>Light Mode</label>
@@ -61,11 +71,15 @@
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
     [Parameter] public string BuildNumber { get; set; } = "dev";
     [Parameter] public EventCallback<string> FontChanged { get; set; }
+    [Parameter] public EventCallback<int> StartLifeChanged { get; set; }
 
     private string currentFont = "Oxanium";
     private readonly string[] availableFonts = { "Oxanium", "Rationale", "Anta" };
+    private int currentStartLife = 20;
+    private readonly int[] availableStartLives = { 20, 25, 30, 40 };
 
     public string CurrentFontName => currentFont == "Oxanium" ? "Oxanium (default)" : currentFont;
+    public string StartLife => currentStartLife.ToString();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -85,6 +99,21 @@
             {
                 Console.WriteLine($"Failed to load font preference: {ex.Message}");
             }
+
+            // Load the current start life preference from localStorage
+            try
+            {
+                var startLifePreference = await JS.InvokeAsync<int>("getStartLifePreference");
+                if (availableStartLives.Contains(startLifePreference))
+                {
+                    currentStartLife = startLifePreference;
+                    StateHasChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to load start life preference: {ex.Message}");
+            }
         }
     }
 
@@ -101,5 +130,24 @@
         currentFont = availableFonts[nextIndex];
         
         await FontChanged.InvokeAsync(currentFont);
+    }
+
+    private async Task CycleStartLife()
+    {
+        var currentIndex = Array.IndexOf(availableStartLives, currentStartLife);
+        var nextIndex = (currentIndex + 1) % availableStartLives.Length;
+        currentStartLife = availableStartLives[nextIndex];
+        
+        // Save the start life preference to localStorage
+        try
+        {
+            await JS.InvokeVoidAsync("settingsManager.setStartLifePreference", currentStartLife);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to save start life preference: {ex.Message}");
+        }
+        
+        await StartLifeChanged.InvokeAsync(currentStartLife);
     }
 } 

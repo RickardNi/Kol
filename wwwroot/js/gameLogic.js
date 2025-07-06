@@ -4,12 +4,14 @@
 
     // Storage keys for settings
     const STORAGE_KEYS = {
-        FONT_PREFERENCE: 'kol_font_preference'
+        FONT_PREFERENCE: 'kol_font_preference',
+        START_LIFE: 'kol_start_life'
     };
 
     // Default settings
     const DEFAULT_SETTINGS = {
-        font: 'Oxanium'
+        font: 'Oxanium',
+        startLife: 20
     };
 
     // Settings management
@@ -45,6 +47,19 @@
         setFontPreference(fontName) {
             const settings = this.loadSettings();
             settings.font = fontName;
+            this.saveSettings(settings);
+        },
+
+        // Get current start life preference
+        getStartLifePreference() {
+            const settings = this.loadSettings();
+            return settings.startLife || DEFAULT_SETTINGS.startLife;
+        },
+
+        // Set start life preference
+        setStartLifePreference(startLife) {
+            const settings = this.loadSettings();
+            settings.startLife = startLife;
             this.saveSettings(settings);
         },
 
@@ -197,6 +212,10 @@
     // Expose settings functions globally
     window.getFontPreference = function() {
         return window.settingsManager ? window.settingsManager.getFontPreference() : 'Oxanium';
+    };
+
+    window.getStartLifePreference = function() {
+        return window.settingsManager ? window.settingsManager.getStartLifePreference() : 20;
     };
 
     // Font switching functionality

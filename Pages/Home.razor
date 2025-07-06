@@ -156,7 +156,7 @@
     </div>
 
 @* Settings Overlay *@
-<Settings IsOpen="isSettingsOpen" IsOpenChanged="HandleSettingsOpenChanged" BuildNumber="@buildNumber" FontChanged="HandleFontChanged" @key="buildNumber" />
+<Settings IsOpen="isSettingsOpen" IsOpenChanged="HandleSettingsOpenChanged" BuildNumber="@buildNumber" FontChanged="HandleFontChanged" StartLifeChanged="HandleStartLifeChanged" @key="buildNumber" />
 
 <div class="quick-menu-container @(isQuickMenuOpen ? "open" : "")">
     <div class="popup-grid">
@@ -229,11 +229,11 @@
 </div>
 
 @code {
-    private const int StartHealth = 20;
+    private int StartHealth { get; set; } = 20;
     private const int VibrationDuration = 30;
 
-    private int topPlayerHealth = StartHealth;
-    private int bottomPlayerHealth = StartHealth;
+    private int topPlayerHealth;
+    private int bottomPlayerHealth;
 
     private int topPlayerChangeCounter = 0;
     private int bottomPlayerChangeCounter = 0;
@@ -535,6 +535,13 @@
         StateHasChanged();
     }
 
+    private async Task HandleStartLifeChanged(int newStartLife)
+    {
+        // Update the start health for new games
+        StartHealth = newStartLife;
+        StateHasChanged();
+    }
+
     private void RecordHealthChange(bool isTopPlayer, int changeAmount, int newHealth)
     {
         healthHistory.Add(new HealthChange
@@ -605,7 +612,22 @@
                 buildNumber = "dev";
             }
 
-
+            // Load start life preference and initialize player health
+            try
+            {
+                var startLifePreference = await JS.InvokeAsync<int>("getStartLifePreference");
+                StartHealth = startLifePreference;
+                topPlayerHealth = StartHealth;
+                bottomPlayerHealth = StartHealth;
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to load start life preference: {ex.Message}");
+                // Use default values
+                topPlayerHealth = StartHealth;
+                bottomPlayerHealth = StartHealth;
+            }
         }
     }
 }
