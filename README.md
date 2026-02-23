@@ -17,7 +17,7 @@ To get started, simply visit the demo and tap **_Install_** when prompted (or ad
 ### 🎮 Core Functionality
 - **Intuitive Controls**: Tap top half to increase life, bottom half to decrease
 - **Long Press Support**: Hold for ±10 life changes
-- **Die Rolling**: Long press the icon for d4, d6, d8, d10, d12 and d20
+- **Die Rolling**: Long press the settings icon for d4, d6, d8, d10, d12 and d20
 - **Haptic Feedback**: Vibration feedback on mobile devices
 - **Sound Effects**: Audio feedback for life changes and reset actions
 - **Wake Lock**: Prevents screen sleep during gameplay
@@ -43,7 +43,7 @@ I have also added some features that I missed in Carbon like visible change indi
 
 Because I completely lack imagination. Kol is the Swedish word for Carbon, simple as that.
 
-### **Dude, this you just vibe code this app?**
+### **Dude, did you just vibe code this app?**
 Yes, since my previous vibe coding project **[MagicDeckStats](https://rickardni.github.io/MagicDeckStats/)** went well, I continued to make another app that could be useful to me, even if the code is sub-optimal. The reality is that I would not have this app if not for vibe coding. And here I thought it all was a meme.
 
 ### **Can you add support for Commander?**
