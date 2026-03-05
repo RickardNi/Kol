@@ -7,4 +7,4 @@ if %errorlevel% equ 0 (
     for /f "tokens=5" %%a in ('netstat -ano ^| findstr :%PORT%') do taskkill /F /PID %%a 2>nul
 )
 
-dotnet watch run --non-interactive --urls "http://localhost:%PORT%;http://0.0.0.0:%PORT%"
+dotnet watch run --non-interactive
