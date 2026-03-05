@@ -113,11 +113,7 @@
     
     private List<HealthChange> healthHistory = new();
 
-
-
     private bool isAdvancedLongPress = false;
-
-
 
     private async void HandlePointerDown(bool isTopPlayer, bool isTop, bool pressed)
     {
@@ -170,8 +166,6 @@
         
         LongPressHealth(isTopPlayer, isIncrease);
     }
-
-
 
     private async void SetPressed(bool isTopPlayer, bool isTop, bool pressed)
     {
@@ -349,8 +343,6 @@
         // Ensure UI updates
         await InvokeAsync(StateHasChanged);
     }
-
-
 
     private void OpenHistory()
     {
